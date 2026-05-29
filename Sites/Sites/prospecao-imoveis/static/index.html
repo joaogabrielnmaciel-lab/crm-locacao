@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prospecção de Imóveis — João Maciel</title>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    html,body{height:100%;font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;overflow:hidden}
+    :root{
+      --navy:#1B2C6E;--navy-dark:#13205A;--gold:#C9A84C;
+      --green:#16a34a;--red:#dc2626;
+      --gray:#f5f6f8;--gray2:#e8eaed;--text:#222;--text2:#666;
+      --sidebar:340px;
+    }
+
+    /* ── HEADER ─────────────────────────────── */
+    .header{background:var(--navy);color:#fff;padding:0 16px;height:56px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-shrink:0;z-index:500;position:relative}
+    .header-brand{font-size:15px;font-weight:800;display:flex;align-items:center;gap:8px;white-space:nowrap}
+    .header-brand span{color:var(--gold)}
+    .header-stats{display:flex;gap:8px}
+    .stat-chip{background:rgba(255,255,255,.12);padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;display:flex;align-items:center;gap:5px;cursor:pointer;transition:background .2s;border:none;color:#fff}
+    .stat-chip:hover{background:rgba(255,255,255,.2)}
+    .stat-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+    .stat-dot.green{background:#4ade80}
+    .stat-dot.red{background:#f87171}
+    .stat-dot.white{background:#fff}
+    .btn-loc{background:var(--gold);border:none;color:#fff;padding:7px 14px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:5px;white-space:nowrap}
+    .btn-loc:hover{background:#b8962e}
+    @media(max-width:600px){.header-stats{display:none}}
+
+    /* ── LAYOUT ─────────────────────────────── */
+    .layout{display:flex;height:calc(100vh - 56px)}
+
+    /* ── SIDEBAR ────────────────────────────── */
+    .sidebar{width:var(--sidebar);min-width:var(--sidebar);display:flex;flex-direction:column;background:#fff;border-right:1px solid var(--gray2);overflow:hidden;z-index:400}
+    .sidebar-filters{padding:10px;border-bottom:1px solid var(--gray2);display:flex;gap:6px;flex-wrap:wrap}
+    .filter-btn{padding:5px 11px;border-radius:20px;border:1px solid var(--gray2);background:#fff;font-size:12px;font-weight:600;color:var(--text2);cursor:pointer;transition:all .2s}
+    .filter-btn.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+    .filter-btn.green.active{background:var(--green);border-color:var(--green)}
+    .filter-btn.red.active{background:var(--red);border-color:var(--red)}
+    .sidebar-list{flex:1;overflow-y:auto;padding:8px}
+    .list-empty{text-align:center;padding:40px 16px;color:var(--text2)}
+    .list-empty p{font-size:13px;line-height:1.6;margin-top:12px}
+
+    /* ── LIST CARD ──────────────────────────── */
+    .list-card{background:#fff;border:1px solid var(--gray2);border-radius:10px;padding:12px;margin-bottom:8px;cursor:pointer;transition:all .2s}
+    .list-card:hover,.list-card.selected{border-color:var(--navy);box-shadow:0 2px 12px rgba(27,44,110,.12);background:#f8f9ff}
+    .lc-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:5px}
+    .lc-tipo{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:3px 8px;border-radius:10px;color:#fff}
+    .lc-tipo.casa{background:var(--navy)}
+    .lc-tipo.apartamento{background:#2563EB}
+    .lc-tipo.terreno{background:#7C3AED}
+    .lc-status{display:flex;align-items:center;gap:4px;font-size:11px;font-weight:600}
+    .lc-status.prospectado{color:var(--green)}
+    .lc-status.nao_prospectado{color:var(--red)}
+    .lc-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+    .lc-dot.prospectado{background:var(--green)}
+    .lc-dot.nao_prospectado{background:var(--red)}
+    .lc-endereco{font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px;line-height:1.3}
+    .lc-info{font-size:12px;color:var(--text2);margin-bottom:6px}
+    .lc-fotos{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:4px}
+    .lc-foto-thumb{width:44px;height:44px;border-radius:6px;object-fit:cover;border:1px solid var(--gray2)}
+    .lc-date{font-size:11px;color:#aaa}
+
+    /* ── MAP ────────────────────────────────── */
+    #map{flex:1;height:100%;z-index:1}
+    .leaflet-container{font-family:system-ui,sans-serif}
+
+    /* ── LAYER TOGGLE ───────────────────────── */
+    .layout{position:relative}
+    .layer-toggle{position:absolute;bottom:24px;right:16px;z-index:400;display:flex;gap:6px;background:#fff;border-radius:10px;padding:5px;box-shadow:0 2px 12px rgba(0,0,0,.18)}
+    .layer-btn{padding:6px 12px;border:none;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;color:var(--text2);background:transparent;transition:all .2s;display:flex;align-items:center;gap:5px}
+    .layer-btn.active{background:var(--navy);color:#fff}
+    .layer-btn:hover:not(.active){background:var(--gray)}
+
+    /* ── MODAL ──────────────────────────────── */
+    .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:1000;align-items:center;justify-content:center;padding:16px}
+    .modal-overlay.open{display:flex}
+    .modal{background:#fff;border-radius:14px;width:100%;max-width:520px;max-height:90vh;overflow-y:auto;position:relative;animation:mIn .2s ease}
+    @keyframes mIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .modal-header{padding:18px 20px 0;display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+    .modal-title{font-size:17px;font-weight:700;color:var(--navy)}
+    .modal-subtitle{font-size:12px;color:var(--text2);margin-top:2px}
+    .modal-close-btn{background:var(--gray);border:none;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:18px;color:var(--text2);flex-shrink:0;display:flex;align-items:center;justify-content:center}
+    .modal-body{padding:16px 20px 20px}
+    .field-group{margin-bottom:14px}
+    .field-label{font-size:12px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.7px;margin-bottom:6px;display:block}
+    .field-input{width:100%;padding:9px 12px;border:1px solid var(--gray2);border-radius:8px;font-size:14px;color:var(--text);outline:none;transition:border .2s;background:#fff}
+    .field-input:focus{border-color:var(--navy)}
+    .field-textarea{resize:vertical;min-height:72px}
+    .field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+    /* Status toggle */
+    .status-toggle{display:flex;gap:8px}
+    .status-btn{flex:1;padding:9px;border-radius:8px;border:2px solid var(--gray2);background:#fff;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:6px}
+    .status-btn.active.nao{background:#fef2f2;border-color:var(--red);color:var(--red)}
+    .status-btn.active.prosp{background:#f0fdf4;border-color:var(--green);color:var(--green)}
+
+    /* Phones */
+    .phone-list{display:flex;flex-direction:column;gap:6px;margin-bottom:8px}
+    .phone-item{display:flex;gap:6px;align-items:center}
+    .phone-item .field-input{flex:1}
+    .btn-remove{background:none;border:none;color:var(--red);cursor:pointer;font-size:20px;line-height:1;padding:0 4px;flex-shrink:0}
+    .btn-add-phone{width:100%;background:none;border:1px dashed var(--gray2);border-radius:8px;padding:7px 12px;font-size:12px;color:var(--text2);cursor:pointer;transition:all .2s}
+    .btn-add-phone:hover{border-color:var(--navy);color:var(--navy)}
+    .phone-actions{display:flex;gap:6px;margin-left:4px;flex-shrink:0}
+    .btn-call{padding:6px 10px;border:none;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;background:#f0f3ff;color:var(--navy);text-decoration:none;display:flex;align-items:center;gap:4px}
+    .btn-wapp{padding:6px 10px;border:none;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;background:#f0fdf4;color:var(--green);text-decoration:none;display:flex;align-items:center;gap:4px}
+
+    /* Fotos */
+    .fotos-grid{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+    .foto-wrap{position:relative;width:72px;height:72px}
+    .foto-wrap img{width:100%;height:100%;object-fit:cover;border-radius:8px;border:1px solid var(--gray2)}
+    .foto-del{position:absolute;top:-5px;right:-5px;background:var(--red);color:#fff;border:none;width:18px;height:18px;border-radius:50%;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center}
+    .btn-upload-label{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border:1px dashed var(--gray2);border-radius:8px;font-size:12px;color:var(--text2);cursor:pointer;transition:all .2s}
+    .btn-upload-label:hover{border-color:var(--navy);color:var(--navy)}
+
+    /* Buttons */
+    .btn-primary{background:var(--navy);color:#fff;border:none;padding:11px 20px;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s}
+    .btn-primary:hover{background:var(--navy-dark)}
+    .btn-danger{background:#fee2e2;color:var(--red);border:none;padding:9px 16px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer}
+    .btn-danger:hover{background:#fecaca}
+    .btn-ghost{background:var(--gray);color:var(--text2);border:none;padding:9px 16px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer}
+    .modal-footer{display:flex;gap:8px;justify-content:flex-end;padding-top:4px}
+    #uploadProgress{display:none;font-size:12px;color:var(--text2);margin-top:6px}
+
+    /* ── TOAST ──────────────────────────────── */
+    .toast{position:fixed;bottom:24px;right:24px;background:#1f2937;color:#fff;padding:12px 18px;border-radius:10px;font-size:13px;font-weight:600;z-index:9999;opacity:0;transform:translateY(10px);transition:all .3s;pointer-events:none;max-width:280px}
+    .toast.show{opacity:1;transform:none}
+
+    /* ── PIN TOOLTIP RICO ──────────────────── */
+    .pin-rich-tooltip.leaflet-tooltip{
+      padding:0!important;border:none!important;background:transparent!important;
+      box-shadow:none!important;border-radius:12px!important;
+    }
+    .pin-rich-tooltip.leaflet-tooltip::before{display:none!important}
+    .pin-card{
+      background:#fff;border-radius:12px;overflow:hidden;width:190px;
+      box-shadow:0 6px 24px rgba(0,0,0,.22);pointer-events:none;
+    }
+    .pin-card-img{width:100%;height:110px;object-fit:cover;display:block}
+    .pin-card-no-img{
+      width:100%;height:80px;background:var(--gray);
+      display:flex;align-items:center;justify-content:center;color:#ccc;
+    }
+    .pin-card-body{padding:8px 10px 10px}
+    .pin-card-badges{display:flex;align-items:center;gap:5px;margin-bottom:5px}
+    .pin-card-tipo{
+      font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;
+      padding:2px 7px;border-radius:8px;color:#fff;
+    }
+    .pin-card-tipo.casa{background:var(--navy)}
+    .pin-card-tipo.apartamento{background:#2563EB}
+    .pin-card-tipo.terreno{background:#7C3AED}
+    .pin-card-status{font-size:10px;font-weight:700;display:flex;align-items:center;gap:3px}
+    .pin-card-status.prospectado{color:var(--green)}
+    .pin-card-status.nao_prospectado{color:var(--red)}
+    .pin-card-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+    .pin-card-dot.prospectado{background:var(--green)}
+    .pin-card-dot.nao_prospectado{background:var(--red)}
+    .pin-card-addr{font-size:12px;font-weight:600;color:var(--text);line-height:1.3}
+
+    /* ── MOBILE BOTTOM SHEET ────────────────── */
+    .mobile-list-btn{display:none}
+    .mobile-sheet-handle{display:none}
+    @media(max-width:640px){
+      .header{padding:0 12px;gap:8px}
+      .header-brand{font-size:13px}
+      .header-stats{display:none}
+      .btn-loc span{display:none}
+      .btn-loc{padding:8px 10px}
+      /* mapa ocupa tudo */
+      .layout{position:relative;height:calc(100vh - 56px)}
+      #map{position:absolute;inset:0;height:100%!important;z-index:1;flex:none}
+      /* sidebar como bottom sheet */
+      .sidebar{
+        position:fixed;bottom:0;left:0;right:0;
+        width:100%;min-width:unset;height:85vh;
+        border-right:none;border-top:3px solid var(--gold);
+        border-radius:16px 16px 0 0;
+        box-shadow:0 -6px 28px rgba(0,0,0,.22);
+        z-index:450;
+        transform:translateY(105%);
+        transition:transform .32s cubic-bezier(.4,0,.2,1);
+      }
+      .sidebar.mobile-open{transform:translateY(0)}
+      /* handle de arrastar */
+      .mobile-sheet-handle{
+        display:block;width:40px;height:4px;background:var(--gray2);
+        border-radius:2px;margin:10px auto 6px;cursor:pointer;flex-shrink:0;
+      }
+      /* botão flutuante "Lista" */
+      .mobile-list-btn{
+        display:flex;position:fixed;bottom:24px;left:50%;
+        transform:translateX(-50%);z-index:400;
+        background:var(--navy);color:#fff;border:none;
+        padding:13px 28px;border-radius:28px;
+        font-size:14px;font-weight:700;gap:8px;align-items:center;
+        box-shadow:0 4px 20px rgba(27,44,110,.45);cursor:pointer;
+        white-space:nowrap;transition:opacity .2s;
+      }
+      .mobile-list-btn.hidden{opacity:0;pointer-events:none}
+      /* camadas acima do botão flutuante */
+      .layer-toggle{bottom:76px;right:12px}
+      /* modal bottom sheet */
+      .modal-overlay{padding:0;align-items:flex-end}
+      .modal{border-radius:16px 16px 0 0;max-height:92vh;max-width:100%}
+      /* touch targets */
+      .filter-btn{padding:8px 14px;font-size:13px}
+      .field-input,.field-input:focus{font-size:16px}
+      .status-btn{padding:12px 8px}
+      .btn-primary,.btn-ghost,.btn-danger{padding:13px 18px;font-size:15px}
+      .btn-add-phone{padding:11px}
+      .foto-wrap{width:80px;height:80px}
+    }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-brand">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+    Prospecção <span>João Maciel</span>
+  </div>
+  <div class="header-stats">
+    <button class="stat-chip" onclick="setFilter('all')"><span class="stat-dot white"></span><span id="statTotal">0</span> total</button>
+    <button class="stat-chip" onclick="setFilter('prospectado')" style="background:rgba(22,163,74,.25)"><span class="stat-dot green"></span><span id="statProsp">0</span> prosp.</button>
+    <button class="stat-chip" onclick="setFilter('nao_prospectado')" style="background:rgba(220,38,38,.25)"><span class="stat-dot red"></span><span id="statNao">0</span> não prosp.</button>
+  </div>
+  <button id="btnLoc" class="btn-loc" onclick="goToMyLocation()">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
+    <span>Minha localização</span>
+  </button>
+</header>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <!-- handle mobile para fechar o painel -->
+    <div class="mobile-sheet-handle" onclick="toggleMobileSidebar()"></div>
+    <div class="sidebar-filters">
+      <button class="filter-btn active" id="fAll"       onclick="setFilter('all')">Todos</button>
+      <button class="filter-btn red"    id="fNao"       onclick="setFilter('nao_prospectado')">Não prosp.</button>
+      <button class="filter-btn green"  id="fProsp"     onclick="setFilter('prospectado')">Prospectados</button>
+      <button class="filter-btn"        id="fCasa"      onclick="setFilter('casa')">Casas</button>
+      <button class="filter-btn"        id="fApto"      onclick="setFilter('apartamento')">Aptos</button>
+      <button class="filter-btn"        id="fTerreno"   onclick="setFilter('terreno')">Terrenos</button>
+    </div>
+    <div class="sidebar-list" id="sidebarList">
+      <div class="list-empty">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <p>Clique em qualquer ponto<br>do mapa para adicionar<br>um imóvel prospectado</p>
+      </div>
+    </div>
+  </aside>
+  <div id="map"></div>
+
+  <!-- botão flutuante mobile "Ver lista" -->
+  <button class="mobile-list-btn" id="mobileListBtn" onclick="toggleMobileSidebar()">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+    Lista · <span id="mobileListCount">0</span>
+  </button>
+
+  <!-- botão de camada dentro do layout para ficar sobre o mapa -->
+  <div class="layer-toggle" id="layerToggle">
+    <button class="layer-btn active" id="btnMapa" onclick="setLayer('mapa')">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg>
+      Mapa
+    </button>
+    <button class="layer-btn" id="btnSatelite" onclick="setLayer('satelite')">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
+      Satélite
+    </button>
+    <button class="layer-btn" id="btnHibrido" onclick="setLayer('hibrido')">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
+      Híbrido
+    </button>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title" id="modalTitle">Novo imóvel</div>
+        <div class="modal-subtitle" id="modalSubtitle"></div>
+      </div>
+      <button class="modal-close-btn" onclick="closeModal()">×</button>
+    </div>
+    <div class="modal-body">
+
+      <div class="field-group">
+        <label class="field-label">Endereço</label>
+        <input id="fEndereco" class="field-input" type="text" placeholder="Buscando endereço…">
+      </div>
+
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label">Tipo</label>
+          <select id="fTipo" class="field-input">
+            <option value="casa">Casa</option>
+            <option value="apartamento">Apartamento</option>
+            <option value="terreno">Terreno</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Proprietário</label>
+          <input id="fProprietario" class="field-input" type="text" placeholder="Nome (opcional)">
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Status</label>
+        <div class="status-toggle">
+          <button class="status-btn active nao" id="btnNao" onclick="selectStatus('nao_prospectado')">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            Não prospectado
+          </button>
+          <button class="status-btn prosp" id="btnProsp" onclick="selectStatus('prospectado')">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Prospectado
+          </button>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Telefones do proprietário</label>
+        <div class="phone-list" id="phoneList"></div>
+        <button class="btn-add-phone" onclick="addPhone()">+ Adicionar telefone</button>
+      </div>
+
+      <div class="field-group" id="fotosGroup" style="display:none">
+        <label class="field-label">Fotos</label>
+        <div class="fotos-grid" id="fotosGrid"></div>
+        <label class="btn-upload-label">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          Enviar foto
+          <input type="file" id="fotoInput" accept="image/*" multiple style="display:none" onchange="handleFotoUpload(event)">
+        </label>
+        <div id="uploadProgress">Enviando foto…</div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Observações</label>
+        <textarea id="fObs" class="field-input field-textarea" placeholder="Ex: placa na frente, portão azul, ligar só de manhã…"></textarea>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-danger" id="btnDelete" style="display:none" onclick="deleteCurrentImovel()">Excluir</button>
+        <button class="btn-ghost" onclick="closeModal()">Cancelar</button>
+        <button class="btn-primary" onclick="saveImovel()">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  // ── State ──────────────────────────────────────────────────
+  let map, allImoveis = [], markersMap = {}, currentFilter = 'all';
+  let editingId = null, pendingLat = null, pendingLng = null;
+  let currentStatus = 'nao_prospectado';
+  let phones = [];
+  const API = '';
+
+  // ── Toast ───────────────────────────────────────────────────
+  function toast(msg, dur=2800) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.classList.add('show');
+    setTimeout(() => el.classList.remove('show'), dur);
+  }
+
+  // ── Tile layers ─────────────────────────────────────────────
+  let tileStreet, tileSatelite, tileLabels, currentLayer = 'mapa';
+
+  function buildLayers() {
+    tileStreet = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© <a href="https://openstreetmap.org">OpenStreetMap</a>',
+      maxZoom: 19
+    });
+    tileSatelite = L.tileLayer(
+      'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+      { attribution: '© Esri — Satellite imagery', maxZoom: 19 }
+    );
+    tileLabels = L.tileLayer(
+      'https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',
+      { attribution: '', maxZoom: 19, opacity: 0.8 }
+    );
+  }
+
+  function setLayer(mode) {
+    currentLayer = mode;
+    [tileStreet, tileSatelite, tileLabels].forEach(l => { if (map.hasLayer(l)) map.removeLayer(l); });
+    if (mode === 'mapa')     { tileStreet.addTo(map); }
+    if (mode === 'satelite') { tileSatelite.addTo(map); }
+    if (mode === 'hibrido')  { tileSatelite.addTo(map); tileLabels.addTo(map); }
+    // marcadores ficam sempre no topo
+    Object.values(markersMap).forEach(m => m.addTo(map));
+    ['btnMapa','btnSatelite','btnHibrido'].forEach(id => document.getElementById(id).classList.remove('active'));
+    document.getElementById({mapa:'btnMapa',satelite:'btnSatelite',hibrido:'btnHibrido'}[mode]).classList.add('active');
+  }
+
+  // ── Map init ────────────────────────────────────────────────
+  function initMap() {
+    map = L.map('map', {zoomControl: true, attributionControl: true}).setView([-27.2408, -48.6330], 15);
+
+    buildLayers();
+    tileStreet.addTo(map);
+
+    map.on('click', async e => {
+      pendingLat = e.latlng.lat;
+      pendingLng = e.latlng.lng;
+      openNewModal(pendingLat, pendingLng);
+    });
+
+    loadImoveis();
+  }
+
+  // ── Marcador SVG customizado ────────────────────────────────
+  function makeIcon(status) {
+    const color = status === 'prospectado' ? '#16a34a' : '#dc2626';
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="36" viewBox="0 0 28 36">
+      <path d="M14 0C6.27 0 0 6.27 0 14c0 9.33 12.25 21 14 21s14-11.67 14-21C28 6.27 21.73 0 14 0z" fill="${color}"/>
+      <circle cx="14" cy="14" r="6" fill="white"/>
+    </svg>`;
+    return L.divIcon({
+      html: svg,
+      className: '',
+      iconSize: [28, 36],
+      iconAnchor: [14, 36],
+      popupAnchor: [0, -36]
+    });
+  }
+
+  // ── Load imóveis ────────────────────────────────────────────
+  async function loadImoveis() {
+    try {
+      const r = await fetch(`${API}/api/imoveis`);
+      allImoveis = await r.json();
+      renderList();
+      allImoveis.forEach(addMarker);
+      loadDashboard();
+    } catch(e) { console.error(e); }
+  }
+
+  async function loadDashboard() {
+    try {
+      const r = await fetch(`${API}/api/dashboard`);
+      const d = await r.json();
+      document.getElementById('statTotal').textContent = d.total || 0;
+      document.getElementById('statProsp').textContent = d.prospectado || 0;
+      document.getElementById('statNao').textContent   = d.nao_prospectado || 0;
+    } catch(e) {}
+  }
+
+  // ── Tooltip rico com foto ────────────────────────────────────
+  function makeTooltipHTML(im) {
+    const TIPO = {casa:'Casa',apartamento:'Apartamento',terreno:'Terreno'};
+    const foto = (im.fotos||[])[0];
+    const statusLabel = im.status==='prospectado' ? 'Prospectado' : 'Não prosp.';
+    return `<div class="pin-card">
+      ${foto
+        ? `<img class="pin-card-img" src="${foto}" alt="">`
+        : `<div class="pin-card-no-img"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>`
+      }
+      <div class="pin-card-body">
+        <div class="pin-card-badges">
+          <span class="pin-card-tipo ${im.tipo}">${TIPO[im.tipo]||im.tipo}</span>
+          <span class="pin-card-status ${im.status}">
+            <span class="pin-card-dot ${im.status}"></span>${statusLabel}
+          </span>
+        </div>
+        <div class="pin-card-addr">${im.endereco||'Sem endereço'}</div>
+      </div>
+    </div>`;
+  }
+
+  // ── Add / update marker ─────────────────────────────────────
+  function addMarker(im) {
+    if (markersMap[im.id]) { markersMap[im.id].remove(); }
+    const marker = L.marker([im.lat, im.lng], { icon: makeIcon(im.status) });
+    marker.bindTooltip(makeTooltipHTML(im), {
+      direction: 'top', offset: [0, -38],
+      className: 'pin-rich-tooltip', sticky: false
+    });
+    marker.on('click', () => { closeMobileSidebar(); selectImovel(im.id); });
+    marker.addTo(map);
+    markersMap[im.id] = marker;
+    if (currentFilter !== 'all') applyMarkerFilter();
+  }
+
+  function applyMarkerFilter() {
+    const visible = new Set(filterData().map(i => i.id));
+    Object.entries(markersMap).forEach(([id, m]) => {
+      if (visible.has(Number(id))) { if (!map.hasLayer(m)) m.addTo(map); }
+      else { if (map.hasLayer(m)) m.remove(); }
+    });
+  }
+
+  // ── Filter ──────────────────────────────────────────────────
+  function filterData() {
+    if (currentFilter === 'all') return allImoveis;
+    if (['prospectado','nao_prospectado'].includes(currentFilter))
+      return allImoveis.filter(i => i.status === currentFilter);
+    return allImoveis.filter(i => i.tipo === currentFilter);
+  }
+
+  function setFilter(f) {
+    currentFilter = f;
+    const map2 = {all:'fAll',nao_prospectado:'fNao',prospectado:'fProsp',casa:'fCasa',apartamento:'fApto',terreno:'fTerreno'};
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(map2[f])?.classList.add('active');
+    renderList();
+    applyMarkerFilter();
+  }
+
+  // ── Render list ─────────────────────────────────────────────
+  function renderList() {
+    const el   = document.getElementById('sidebarList');
+    const data = filterData();
+    // atualiza contador do botão mobile
+    const mlc = document.getElementById('mobileListCount');
+    if (mlc) mlc.textContent = data.length;
+    if (!data.length) {
+      el.innerHTML = `<div class="list-empty">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <p>Nenhum imóvel nesse filtro.<br>Clique no mapa para adicionar.</p>
+      </div>`;
+      return;
+    }
+    const TIPO = {casa:'Casa',apartamento:'Apartamento',terreno:'Terreno'};
+    el.innerHTML = data.map(im => {
+      const tel  = (im.telefones||[]).slice(0,2).join(' • ');
+      const date = im.created_at ? new Date(im.created_at).toLocaleDateString('pt-BR') : '';
+      return `<div class="list-card${editingId===im.id?' selected':''}" onclick="selectImovel(${im.id})">
+        <div class="lc-top">
+          <span class="lc-tipo ${im.tipo}">${TIPO[im.tipo]||im.tipo}</span>
+          <span class="lc-status ${im.status}">
+            <span class="lc-dot ${im.status}"></span>
+            ${im.status==='prospectado'?'Prospectado':'Não prospectado'}
+          </span>
+        </div>
+        <div class="lc-endereco">${im.endereco||'Endereço não informado'}</div>
+        ${im.proprietario||tel ? `<div class="lc-info">${[im.proprietario,tel].filter(Boolean).join(' • ')}</div>` : ''}
+        ${(im.fotos||[]).length ? `<div class="lc-fotos">${im.fotos.slice(0,4).map(f=>`<img class="lc-foto-thumb" src="${f}" alt="">`).join('')}</div>` : ''}
+        <div class="lc-date">${date}</div>
+      </div>`;
+    }).join('');
+  }
+
+  // ── Select imóvel ───────────────────────────────────────────
+  function selectImovel(id) {
+    const im = allImoveis.find(i => i.id === id);
+    if (!im) return;
+    map.setView([im.lat, im.lng], Math.max(map.getZoom(), 16));
+    openEditModal(im);
+  }
+
+  // ── Geocoding via Nominatim (gratuito) ──────────────────────
+  async function reverseGeocode(lat, lng) {
+    try {
+      const r   = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&accept-language=pt-BR`, {headers:{'Accept-Language':'pt-BR'}});
+      const d   = await r.json();
+      const ad  = d.address || {};
+      const parts = [ad.road, ad.suburb||ad.neighbourhood, ad.city||ad.town||ad.village].filter(Boolean);
+      return parts.join(', ') || d.display_name || '';
+    } catch(e) { return ''; }
+  }
+
+  // ── Modal novo ──────────────────────────────────────────────
+  async function openNewModal(lat, lng) {
+    editingId = null;
+    currentStatus = 'nao_prospectado';
+    document.getElementById('modalTitle').textContent    = 'Novo imóvel';
+    document.getElementById('modalSubtitle').textContent = `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+    document.getElementById('fEndereco').value     = 'Buscando endereço…';
+    document.getElementById('fTipo').value         = 'casa';
+    document.getElementById('fProprietario').value = '';
+    document.getElementById('fObs').value          = '';
+    document.getElementById('btnDelete').style.display  = 'none';
+    document.getElementById('fotosGroup').style.display = '';
+    phones = [];
+    renderPhones();
+    renderFotos([]);
+    selectStatus('nao_prospectado');
+    document.getElementById('modalOverlay').classList.add('open');
+    // busca endereço em segundo plano
+    const addr = await reverseGeocode(lat, lng);
+    document.getElementById('fEndereco').value = addr;
+  }
+
+  // ── Modal editar ────────────────────────────────────────────
+  function openEditModal(im) {
+    editingId = im.id;
+    currentStatus = im.status;
+    document.getElementById('modalTitle').textContent    = 'Editar imóvel';
+    document.getElementById('modalSubtitle').textContent = im.endereco || '';
+    document.getElementById('fEndereco').value     = im.endereco || '';
+    document.getElementById('fTipo').value         = im.tipo || 'casa';
+    document.getElementById('fProprietario').value = im.proprietario || '';
+    document.getElementById('fObs').value          = im.observacoes || '';
+    document.getElementById('btnDelete').style.display  = '';
+    document.getElementById('fotosGroup').style.display = '';
+    phones = [...(im.telefones || [])];
+    renderPhones();
+    renderFotos(im.fotos || []);
+    selectStatus(im.status);
+    document.getElementById('modalOverlay').classList.add('open');
+  }
+
+  function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('open');
+    editingId = null; pendingLat = null; pendingLng = null;
+    renderList();
+  }
+
+  // ── Status ──────────────────────────────────────────────────
+  function selectStatus(s) {
+    currentStatus = s;
+    document.getElementById('btnNao').className  = `status-btn${s==='nao_prospectado' ? ' active nao' : ''}`;
+    document.getElementById('btnProsp').className = `status-btn${s==='prospectado' ? ' active prosp' : ''}`;
+    document.getElementById('btnNao').innerHTML  = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg> Não prospectado`;
+    document.getElementById('btnProsp').innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Prospectado`;
+  }
+
+  // ── Phones ──────────────────────────────────────────────────
+  function renderPhones() {
+    document.getElementById('phoneList').innerHTML = phones.map((p, i) => `
+      <div class="phone-item">
+        <input class="field-input" type="tel" value="${p}" placeholder="(47) 99999-9999" oninput="phones[${i}]=this.value">
+        ${editingId && p ? `
+          <a class="btn-call"  href="tel:${p.replace(/\D/g,'')}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.01 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg> Ligar</a>
+          <a class="btn-wapp" href="https://wa.me/55${p.replace(/\D/g,'')}" target="_blank"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> WA</a>
+        ` : ''}
+        <button class="btn-remove" onclick="phones.splice(${i},1);renderPhones()">×</button>
+      </div>`).join('');
+  }
+  function addPhone() { phones.push(''); renderPhones(); }
+
+  // ── Fotos ───────────────────────────────────────────────────
+  function renderFotos(fotos) {
+    document.getElementById('fotosGrid').innerHTML = fotos.map((f, i) => `
+      <div class="foto-wrap">
+        <img src="${f}" alt="">
+        ${editingId ? `<button class="foto-del" onclick="deleteFoto(${i},event)">×</button>` : ''}
+      </div>`).join('');
+  }
+
+  async function deleteFoto(idx, e) {
+    e.stopPropagation();
+    const r = await fetch(`${API}/api/imoveis/${editingId}/fotos/${idx}`, {method:'DELETE'});
+    if (r.ok) {
+      const up = await r.json();
+      const im = allImoveis.find(i => i.id === editingId);
+      if (im) { im.fotos = up.fotos; addMarker(im); }
+      renderFotos(up.fotos);
+      renderList();
+      toast('Foto removida');
+    }
+  }
+
+  async function handleFotoUpload(e) {
+    const files = Array.from(e.target.files); // capturar ANTES de qualquer await
+    if (!files.length) return;
+    // Se ainda não salvou o imóvel, salva automaticamente antes de subir a foto
+    if (!editingId) {
+      if (!pendingLat) { toast('Clique no mapa para posicionar o imóvel primeiro.'); return; }
+      await saveImovel(true); // autoSave = true → não fecha o modal
+      if (!editingId) { toast('Erro ao salvar. Tente novamente.'); return; }
+    }
+    document.getElementById('uploadProgress').style.display = 'block';
+    let up;
+    for (const file of files) {
+      const fd = new FormData(); fd.append('foto', file);
+      const r = await fetch(`${API}/api/imoveis/${editingId}/fotos`, {method:'POST', body:fd});
+      if (r.ok) up = await r.json();
+    }
+    document.getElementById('uploadProgress').style.display = 'none';
+    e.target.value = '';
+    if (up) {
+      const im = allImoveis.find(i => i.id === editingId);
+      if (im) { im.fotos = up.fotos; addMarker(im); }
+      renderFotos(up.fotos);
+      renderList();
+      toast(`${files.length} foto${files.length>1?'s':''} enviada${files.length>1?'s':''}`);
+    }
+  }
+
+  // ── Save ────────────────────────────────────────────────────
+  async function saveImovel(autoSave = false) {
+    const payload = {
+      endereco:     document.getElementById('fEndereco').value.trim(),
+      tipo:         document.getElementById('fTipo').value,
+      status:       currentStatus,
+      proprietario: document.getElementById('fProprietario').value.trim(),
+      telefones:    phones.filter(p => p.trim()),
+      observacoes:  document.getElementById('fObs').value.trim(),
+    };
+    let url = `${API}/api/imoveis`, method = 'POST';
+    if (editingId) { url = `${API}/api/imoveis/${editingId}`; method = 'PUT'; }
+    else           { payload.lat = pendingLat; payload.lng = pendingLng; }
+
+    const r = await fetch(url, {method, headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)});
+    if (!r.ok) { toast('Erro ao salvar'); return; }
+    const saved = await r.json();
+
+    if (editingId) {
+      const idx = allImoveis.findIndex(i => i.id === editingId);
+      if (idx !== -1) allImoveis[idx] = {...allImoveis[idx], ...saved};
+    } else {
+      allImoveis.unshift(saved);
+      editingId = saved.id;
+      document.getElementById('btnDelete').style.display = '';
+      phones = [...(saved.telefones || [])];
+      renderPhones();
+    }
+
+    addMarker(saved);
+    applyMarkerFilter();
+    renderList();
+    loadDashboard();
+    toast(method === 'POST' ? 'Imóvel salvo!' : 'Imóvel atualizado!');
+    if (!autoSave) closeModal();
+  }
+
+  // ── Delete ──────────────────────────────────────────────────
+  async function deleteCurrentImovel() {
+    if (!editingId || !confirm('Excluir este imóvel?')) return;
+    await fetch(`${API}/api/imoveis/${editingId}`, {method:'DELETE'});
+    if (markersMap[editingId]) { markersMap[editingId].remove(); delete markersMap[editingId]; }
+    allImoveis = allImoveis.filter(i => i.id !== editingId);
+    renderList(); loadDashboard(); closeModal();
+    toast('Imóvel excluído');
+  }
+
+  // ── Mobile sidebar (bottom sheet) ───────────────────────────
+  function toggleMobileSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const btn     = document.getElementById('mobileListBtn');
+    const open    = sidebar.classList.toggle('mobile-open');
+    if (btn) btn.classList.toggle('hidden', open);
+  }
+  function closeMobileSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const btn     = document.getElementById('mobileListBtn');
+    if (sidebar.classList.contains('mobile-open')) {
+      sidebar.classList.remove('mobile-open');
+      if (btn) btn.classList.remove('hidden');
+    }
+  }
+
+  // ── My location ─────────────────────────────────────────────
+  let myLocationMarker = null;
+  function goToMyLocation() {
+    if (!navigator.geolocation) { toast('Geolocalização indisponível'); return; }
+    const btn = document.getElementById('btnLoc');
+    btn.disabled = true;
+    btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="animation:spin 1s linear infinite"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg> <span>Localizando…</span>`;
+    navigator.geolocation.getCurrentPosition(
+      p => {
+        const {latitude: lat, longitude: lng} = p.coords;
+        map.setView([lat, lng], 17);
+        // remove ponto anterior
+        if (myLocationMarker) myLocationMarker.remove();
+        myLocationMarker = L.circleMarker([lat, lng], {
+          radius: 10, color: '#fff', weight: 3,
+          fillColor: '#2563eb', fillOpacity: 1
+        }).addTo(map).bindPopup('Você está aqui');
+        btn.disabled = false;
+        btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg> <span>Minha localização</span>`;
+      },
+      () => {
+        btn.disabled = false;
+        btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg> <span>Minha localização</span>`;
+        toast('Não foi possível obter sua localização');
+      },
+      {enableHighAccuracy: true, timeout: 10000}
+    );
+  }
+
+  // ── Init ────────────────────────────────────────────────────
+  document.addEventListener('keydown', e => { if (e.key==='Escape') closeModal(); });
+  initMap();
+</script>
+</body>
+</html>

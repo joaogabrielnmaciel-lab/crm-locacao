@@ -1,0 +1,6 @@
+name = "jolly-shadow-84ba"
+main = "_worker.js"
+compatibility_date = "2026-05-21"
+
+[assets]
+directory = "."

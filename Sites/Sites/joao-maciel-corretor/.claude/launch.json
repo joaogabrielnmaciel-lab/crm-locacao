@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "site",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "-l", "3456", "/Users/agathatelo/Sites/joao-maciel-corretor"],
+      "port": 3456
+    }
+  ]
+}
