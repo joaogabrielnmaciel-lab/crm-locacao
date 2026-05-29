@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Obrigado! - Flores de Sal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Inter',-apple-system,sans-serif;background:linear-gradient(135deg,#1E3C50,#142D3C);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+    .container{background:#fff;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,0.3);max-width:500px;width:100%;padding:40px;text-align:center}
+    .checkmark{font-size:60px;margin-bottom:20px;animation:bounce .6s ease-in-out}
+    @keyframes bounce{0%{transform:scale(0)}50%{transform:scale(1.2)}100%{transform:scale(1)}}
+    h1{color:#1E3C50;font-size:28px;margin-bottom:10px;font-weight:700}
+    .subtitle{color:#666;font-size:14px;margin-bottom:30px;line-height:1.6}
+    .dados{background:#f5f5f5;border-left:4px solid #1E3C50;padding:20px;text-align:left;margin:30px 0;border-radius:6px}
+    .dado-item{margin-bottom:12px;font-size:14px}
+    .dado-label{color:#1E3C50;font-weight:600;display:block;margin-bottom:2px}
+    .buttons{display:flex;gap:12px;margin-top:30px}
+    .btn{flex:1;padding:14px 20px;font-size:14px;font-weight:600;border:none;border-radius:6px;cursor:pointer;transition:all .3s;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+    .btn-whatsapp{background:#25D366;color:#fff}
+    .btn-whatsapp:hover{background:#1da850;transform:translateY(-2px);box-shadow:0 8px 20px rgba(37,211,102,0.3)}
+    .btn-voltar{background:#E8E8E8;color:#333}
+    .btn-voltar:hover{background:#d0d0d0;transform:translateY(-2px)}
+    .status{color:#4CAF50;font-size:12px;margin-top:20px;padding-top:20px;border-top:1px solid #eee}
+    .loading{display:inline-block;width:8px;height:8px;background:#4CAF50;border-radius:50%;animation:pulse 1.5s infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="checkmark">✅</div>
+    <h1>Recebido com sucesso!</h1>
+    <p class="subtitle">Seus dados foram salvos. Em breve um especialista entrará em contato para apresentar as melhores opções de lotes no Flores de Sal.</p>
+    <div class="dados">
+      <div class="dado-item"><span class="dado-label">Nome</span><span id="nome-display">-</span></div>
+      <div class="dado-item"><span class="dado-label">WhatsApp</span><span id="tel-display">-</span></div>
+      <div class="dado-item"><span class="dado-label">E-mail</span><span id="email-display">-</span></div>
+      <div class="dado-item"><span class="dado-label">Interesse</span><span id="interesse-display">-</span></div>
+    </div>
+    <div class="buttons">
+      <a href="https://wa.me/554796268759?text=Olá!%20Preenchi%20o%20formulário%20e%20gostaria%20de%20saber%20mais%20sobre%20os%20lotes%20no%20Flores%20de%20Sal." target="_blank" class="btn btn-whatsapp">Ser atendido agora</a>
+      <a href="/" class="btn btn-voltar">Voltar</a>
+    </div>
+    <div class="status"><span class="loading"></span> Envio confirmado</div>
+  </div>
+  <script>
+    const lead=JSON.parse(localStorage.getItem('lead_flores_de_sal')||'{}');
+    if(lead.nome){document.getElementById('nome-display').textContent=lead.nome;document.getElementById('tel-display').textContent=lead.tel;document.getElementById('email-display').textContent=lead.email||'Não informado';document.getElementById('interesse-display').textContent=lead.interesse||'Não especificado'}
+    else{setTimeout(()=>window.location.href='/',3000)}
+    setTimeout(()=>localStorage.removeItem('lead_flores_de_sal'),30*60*1000);
+  </script>
+</body>
+</html>

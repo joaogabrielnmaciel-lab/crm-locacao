@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Altos de Santa Helena | Loteamento em Tijucas - SC | Terraza Urbanismo</title>
+  <meta name="description" content="Altos de Santa Helena – bairro planejado em Tijucas, SC pela Terraza Urbanismo. Criadores do Bosque da Mata. Lotes com parque central, lago, ciclovia e infraestrutura completa."/>
+  <link rel="preload" as="image" href="images/hero-noite.jpg" fetchpriority="high">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;}
+    :root{
+      --amarelo:#F0C93A;
+      --amarelo-claro:#FFE066;
+      --amarelo-escuro:#C9A800;
+      --preto:#1C1C1C;
+      --creme:#FBF8F2;
+      --branco:#FFFFFF;
+      --cinza:#F5F5F0;
+      --texto:#555;
+      --borda:#E8E4DC;
+    }
+    html{scroll-behavior:smooth;}
+    body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;color:var(--preto);background:var(--branco);}
+
+    /* ===== NAV ===== */
+    nav{
+      position:fixed;top:0;left:0;right:0;z-index:100;
+      background:rgba(255,255,255,0.97);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--borda);
+    }
+    .nav-inner{
+      display:flex;justify-content:space-between;align-items:center;
+      padding:16px 6%;max-width:1400px;margin:0 auto;
+    }
+    .logo-nav{
+      display:flex;flex-direction:column;line-height:1.1;
+    }
+    .logo-top{
+      font-family:Georgia,'Times New Roman',serif;
+      font-size:0.72rem;font-weight:700;
+      letter-spacing:3px;text-transform:uppercase;
+      color:var(--texto);
+    }
+    .logo-bottom{
+      display:flex;align-items:center;gap:7px;
+    }
+    .logo-bottom span{
+      font-family:Georgia,'Times New Roman',serif;
+      font-size:1.35rem;font-weight:900;color:var(--preto);
+    }
+    .logo-dot{
+      width:12px;height:12px;
+      background:var(--amarelo);border-radius:50%;
+      flex-shrink:0;
+    }
+    .logo-terraza{
+      font-size:0.68rem;color:#999;letter-spacing:1.5px;
+      text-transform:uppercase;margin-top:2px;
+    }
+    nav ul{list-style:none;display:flex;gap:28px;align-items:center;}
+    nav ul li a{
+      text-decoration:none;color:var(--texto);
+      font-size:0.85rem;font-weight:500;
+      transition:color 0.2s;letter-spacing:0.3px;
+    }
+    nav ul li a:hover{color:var(--preto);}
+    .nav-cta{
+      background:var(--preto) !important;
+      color:#fff !important;padding:10px 22px;
+      border-radius:4px;font-weight:600 !important;
+      font-size:0.85rem !important;
+    }
+    .nav-cta:hover{background:#333 !important;}
+
+    /* ===== HERO ===== */
+    .hero{
+      min-height:100vh;position:relative;
+      overflow:hidden;display:flex;
+      flex-direction:column;justify-content:center;
+    }
+    .hero-bg{
+      position:absolute;inset:0;
+      background:url('images/hero-noite.jpg') center/cover no-repeat;
+    }
+    .hero-bg::after{
+      content:'';position:absolute;inset:0;
+      background:linear-gradient(to right,rgba(0,0,0,0.82) 45%,rgba(0,0,0,0.3) 100%);
+    }
+    .hero-content{
+      position:relative;z-index:2;
+      padding:130px 6% 200px;
+      max-width:700px;
+    }
+    .hero-badge{
+      display:inline-flex;align-items:center;gap:8px;
+      background:rgba(240,201,58,0.15);
+      border:1px solid rgba(240,201,58,0.35);
+      color:var(--amarelo);padding:7px 18px;border-radius:100px;
+      font-size:0.75rem;font-weight:600;letter-spacing:2px;
+      text-transform:uppercase;margin-bottom:30px;
+    }
+    .hero h1{
+      font-family:Georgia,'Times New Roman',serif;
+      font-size:1.4rem;font-weight:400;font-style:italic;
+      color:rgba(255,255,255,0.6);margin-bottom:6px;
+      letter-spacing:1px;
+    }
+    .hero-titulo{
+      font-family:Georgia,'Times New Roman',serif;
+      font-size:5rem;font-weight:900;
+      color:#fff;line-height:1;
+      margin-bottom:30px;
+      display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+    }
+    .hero-titulo .dot-grande{
+      width:20px;height:20px;
+      background:var(--amarelo);border-radius:50%;
+      flex-shrink:0;margin-top:8px;
+    }
+    .hero p{
+      font-size:1.05rem;line-height:1.85;
+      color:rgba(255,255,255,0.65);
+      margin-bottom:44px;max-width:520px;
+    }
+    .hero-btns{display:flex;gap:14px;flex-wrap:wrap;}
+    .btn-amarelo{
+      display:inline-flex;align-items:center;gap:8px;
+      background:var(--amarelo);color:var(--preto);
+      padding:15px 32px;border-radius:4px;
+      font-weight:700;font-size:0.95rem;
+      text-decoration:none;transition:all 0.3s;
+    }
+    .btn-amarelo:hover{background:var(--amarelo-claro);transform:translateY(-2px);box-shadow:0 8px 30px rgba(240,201,58,0.4);}
+    .btn-branco-outline{
+      display:inline-flex;align-items:center;gap:8px;
+      border:1.5px solid rgba(255,255,255,0.35);color:#fff;
+      padding:15px 32px;border-radius:4px;
+      font-weight:500;font-size:0.95rem;
+      text-decoration:none;transition:all 0.3s;
+    }
+    .btn-branco-outline:hover{border-color:#fff;background:rgba(255,255,255,0.1);}
+
+    /* NÚMEROS DO HERO */
+    .hero-nums{
+      position:absolute;bottom:0;left:0;right:0;z-index:2;
+      display:grid;grid-template-columns:repeat(4,1fr);
+    }
+    .hero-num{
+      padding:26px 6%;
+      background:rgba(0,0,0,0.55);backdrop-filter:blur(10px);
+      border-right:1px solid rgba(255,255,255,0.08);
+      border-top:1px solid rgba(255,255,255,0.08);
+    }
+    .hero-num:last-child{border-right:none;}
+    .hero-num h3{font-size:1.9rem;font-weight:800;color:var(--amarelo);}
+    .hero-num p{font-size:0.75rem;color:rgba(255,255,255,0.5);margin-top:5px;letter-spacing:0.5px;}
+
+    /* ===== SEÇÃO TERRAZA ===== */
+    .terraza{
+      padding:90px 6%;background:var(--preto);
+      display:grid;grid-template-columns:1fr 1fr;
+      gap:80px;align-items:center;
+    }
+    .terraza-texto h2{
+      font-family:Georgia,'Times New Roman',serif;
+      font-size:0.75rem;font-weight:600;
+      color:var(--amarelo);letter-spacing:3px;
+      text-transform:uppercase;margin-bottom:16px;
+    }
+    .terraza-texto h3{
+      font-family:Georgia,'Times New Roman',serif;
+      font-size:2.2rem;font-weight:800;
+      color:#fff;margin-bottom:20px;line-height:1.3;
+    }
+    .terraza-texto p{
+      color:rgba(255,255,255,0.55);
+      line-height:1.85;font-size:0.96rem;margin-bottom:14px;
+    }
+    .terraza-numeros{
+      display:grid;grid-template-columns:1fr 1fr;
+      gap:1px;background:rgba(255,255,255,0.06);
+      margin-top:36px;border:1px solid rgba(255,255,255,0.06);
+    }
+    .terraza-num{
+      background:var(--preto);padding:28px 24px;
+    }
+    .terraza-num h4{font-size:2rem;font-weight:800;color:var(--amarelo);}
+    .terraza-num p{font-size:0.78rem;color:rgba(255,255,255,0.4);margin-top:5px;}
+
+    /* BOSQUE DA MATA CARD */
+    .bosque-card{
+      background:var(--preto);
+      border:1px solid rgba(240,201,58,0.2);
+      border-radius:8px;overflow:hidden;
+    }
+    .bosque-img{
+      width:100%;height:260px;
+      background:url('images/bosque-da-mata.jpg') center/cover;
+      background-color:#1a1a0a;
+      display:flex;align-items:center;justify-content:center;
+      font-size:3rem;color:rgba(255,255,255,0.15);
+      position:relative;
+    }
+    .bosque-img::after{
+      content:'';position:absolute;bottom:0;left:0;right:0;height:60px;
+      background:linear-gradient(to top,var(--preto),transparent);
+    }
+    .bosque-info{padding:28px 30px 32px;}
+    .bosque-tag{
+      display:inline-block;
+      background:rgba(240,201,58,0.1);
+      border:1px solid rgba(240,201,58,0.3);
+      color:var(--amarelo);padding:4px 12px;
+      border-radius:100px;font-size:0.72rem;
+      font-weight:600;letter-spacing:1.5px;
+      text-transform:uppercase;margin-bottom:12px;
+    }
+    .bosque-info h4{
+      font-family:Georgia,'Times New Roman',serif;
+      font-size:1.5rem;font-weight:800;color:#fff;margin-bottom:10px;
+    }
+    .bosque-info p{color:rgba(255,255,255,0.5);font-size:0.9rem;line-height:1.7;}
+    .bosque-stats{
+      display:flex;gap:24px;margin-top:20px;
+      padding-top:20px;border-top:1px solid rgba(255,255,255,0.06);
+    }
+    .bosque-stat h5{font-size:1.5rem;font-weight:800;color:var(--amarelo);}
+    .bosque-stat p{font-size:0.75rem;color:rgba(255,255,255,0.35);margin-top:2px;}
+
+    /* ===== VALORIZAÇÃO ===== */
+    .valorizacao{
+      padding:90px 6%;
+      background:linear-gradient(135deg,var(--amarelo) 0%,#e6b800 100%);
+    }
+    .val-inner{max-width:1100px;margin:0 auto;}
+    .val-topo{
+      display:flex;justify-content:space-between;
+      align-items:flex-end;margin-bottom:56px;flex-wrap:wrap;gap:24px;
+    }
+    .val-topo h2{
+      font-family:Georgia,'Times New Roman',serif;
+      font-size:2.6rem;font-weight:900;
+      color:var(--preto);line-height:1.2;max-width:500px;
+    }
+    .val-topo p{color:rgba(28,28,28,0.65);font-size:0.95rem;max-width:340px;line-height:1.7;}
+    .val-cards{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:20px;
+    }
+    .val-card{
+      background:rgba(255,255,255,0.25);
+      border:1px solid rgba(255,255,255,0.5);
+      border-radius:8px;padding:36px 30px;
+      backdrop-filter:blur(4px);
+    }
+    .val-num{font-size:3rem;font-weight:900;color:var(--preto);line-height:1;}
+    .val-card h4{font-size:1rem;font-weight:700;color:var(--preto);margin:12px 0 8px;}
+    .val-card p{font-size:0.88rem;color:rgba(28,28,28,0.65);line-height:1.65;}
+    .val-destaque{
+      background:var(--preto);border-color:var(--preto);
+    }
+    .val-destaque .val-num,.val-destaque h4{color:var(--amarelo);}
+    .val-destaque p{color:rgba(255,255,255,0.55);}
+
+    /* ===== DIFERENCIAIS ===== */
+    .diferenciais{padding:90px 6%;background:var(--creme);}
+    .section-tag{
+      display:inline-flex;align-items:center;gap:8px;
+      color:var(--amarelo-escuro);font-size:0.72rem;
+      font-weight:700;letter-spacing:3px;text-transform:uppercase;
+      margin-bottom:14px;
+    }
+    .section-tag::before{content:'';width:20px;height:2px;background:var(--amarelo);}
+    .section-h2{
+      font-family:Georgia,'Times New Roman',serif;
+      font-size:2.3rem;font-weight:800;color:var(--preto);
+      margin-bottom:56px;line-height:1.25;
+    }
+    .dif-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+    .dif-card{
+      background:var(--branco);border:1px solid var(--borda);
+      border-radius:8px;padding:38px 30px;transition:all 0.3s;
+    }
+    .dif-card:hover{
+      box-shadow:0 12px 40px rgba(0,0,0,0.08);
+      border-color:var(--amarelo);transform:translateY(-4px);
+    }
+    .dif-icon{font-size:2.2rem;margin-bottom:18px;display:block;}
+    .dif-card h3{font-size:1.1rem;font-weight:700;color:var(--preto);margin-bottom:10px;}
+    .dif-card p{color:var(--texto);font-size:0.91rem;line-height:1.7;}
+
+    /* ===== GALERIA ===== */
+    .galeria{background:var(--preto);}
+    .galeria-header{
+      padding:70px 6% 40px;
+      display:flex;justify-content:space-between;align-items:flex-end;
+    }
+    .galeria-header h2{
+      font-family:Georgia,'Times New Roman',serif;
+      font-size:2.2rem;font-weight:800;color:#fff;
+    }
+    .galeria-header p{color:rgba(255,255,255,0.4);font-size:0.9rem;}
+    .galeria-grid{
+      display:grid;
+      grid-template-columns:2fr 1fr 1fr;
+      grid-template-rows:340px 340px;
+      gap:3px;
+    }
+    .g-item{overflow:hidden;position:relative;cursor:pointer;}
+    .g-item.tall{grid-row:span 2;}
+    .g-img{
+      width:100%;height:100%;
+      background:#1a1a1a;
+      transition:transform 0.5s;
+    }
+    .g-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s;display:block;}
+    .g-item:hover .g-img img{transform:scale(1.06);}
+    .g-label{
+      position:absolute;bottom:0;left:0;right:0;
+      background:linear-gradient(to top,rgba(0,0,0,0.75),transparent);
+      color:#fff;padding:20px 18px 14px;
+      font-size:0.82rem;font-weight:600;
+      opacity:0;transition:opacity 0.3s;
+    }
+    .g-item:hover .g-label{opacity:1;}
+
+    /* ===== INFRAESTRUTURA ===== */
+    .infraestrutura{
+      padding:90px 6%;background:var(--branco);
+      display:grid;grid-template-columns:1fr 1fr;
+      gap:80px;align-items:center;
+    }
+    .infra-img{
+      width:100%;aspect-ratio:4/3;border-radius:8px;
+      overflow:hidden;background:#eee;position:relative;
+    }
+    .infra-img img{width:100%;height:100%;object-fit:cover;display:block;}
+    .infra-badge-abs{
+      position:absolute;bottom:-14px;right:-14px;
+      background:var(--amarelo);color:var(--preto);
+      padding:16px 22px;font-weight:800;font-size:0.85rem;
+      border-radius:4px;box-shadow:0 4px 20px rgba(240,201,58,0.35);
+    }
+    .infra-texto h2{
+      font-family:Georgia,'Times New Roman',serif;
+      font-size:2rem;font-weight:800;
+      color:var(--preto);margin-bottom:18px;line-height:1.3;
+    }
+    .infra-texto p{color:var(--texto);line-height:1.85;margin-bottom:14px;font-size:0.95rem;}
+    .infra-lista{
+      list-style:none;margin-top:24px;
+      display:grid;grid-template-columns:1fr 1fr;gap:10px;
+    }
+    .infra-lista li{
+      display:flex;align-items:center;gap:9px;
+      color:var(--preto);font-size:0.88rem;font-weight:500;
+    }
+    .infra-lista li::before{
+      content:'';width:7px;height:7px;
+      background:var(--amarelo);border-radius:50%;flex-shrink:0;
+    }
+
+    /* ===== IMPLANTAÇÃO ===== */
+    .implantacao{padding:90px 6%;background:var(--creme);}
+    .implantacao .section-h2{margin-bottom:40px;}
+    .implantacao-img{
+      border-radius:8px;overflow:hidden;
+      box-shadow:0 20px 60px rgba(0,0,0,0.1);
+    }
+    .implantacao-img img{width:100%;display:block;}
+    .impl-legenda{
+      display:flex;justify-content:center;gap:28px;
+      flex-wrap:wrap;margin-top:28px;
+    }
+    .leg{display:flex;align-items:center;gap:9px;font-size:0.86rem;font-weight:500;color:var(--preto);}
+    .leg-cor{width:14px;height:14px;border-radius:3px;flex-shrink:0;}
+
+    /* ===== LOCALIZAÇÃO ===== */
+    .localizacao{
+      padding:90px 6%;background:var(--preto);
+      display:grid;grid-template-columns:1fr 1fr;
+      gap:70px;align-items:center;
+    }
+    .loc-tag{
+      display:inline-flex;align-items:center;gap:8px;
+      color:var(--amarelo);font-size:0.72rem;
+      font-weight:700;letter-spacing:3px;text-transform:uppercase;
+      margin-bottom:14px;
+    }
+    .loc-tag::before{content:'';width:20px;height:2px;background:var(--amarelo);}
+    .localizacao h2{
+      font-family:Georgia,'Times New Roman',serif;
+      font-size:2.2rem;font-weight:800;
+      color:#fff;margin-bottom:18px;line-height:1.3;
+    }
+    .localizacao p{color:rgba(255,255,255,0.5);line-height:1.85;font-size:0.95rem;margin-bottom:14px;}
+    .loc-items{margin-top:28px;display:flex;flex-direction:column;gap:4px;}
+    .loc-item{
+      display:flex;align-items:flex-start;gap:14px;
+      padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.06);
+    }
+    .loc-icone{
+      width:40px;height:40px;
+      background:rgba(240,201,58,0.12);
+      border:1px solid rgba(240,201,58,0.25);
+      border-radius:4px;display:flex;
+      align-items:center;justify-content:center;
+      font-size:1rem;flex-shrink:0;
+    }
+    .loc-item strong{display:block;color:#fff;font-size:0.88rem;font-weight:600;margin-bottom:2px;}
+    .loc-item span{color:rgba(255,255,255,0.4);font-size:0.85rem;}
+    .loc-mapa{
+      border-radius:8px;overflow:hidden;
+      height:420px;border:1px solid rgba(255,255,255,0.08);
+    }
+    .loc-mapa iframe{width:100%;height:100%;border:none;display:block;}
+
+    /* ===== CTA ===== */
+    .cta-band{
+      padding:90px 6%;
+      background:var(--amarelo);text-align:center;
+    }
+    .cta-band h2{
+      font-family:Georgia,'Times New Roman',serif;
+      font-size:2.8rem;font-weight:900;
+      color:var(--preto);margin-bottom:14px;
+    }
+    .cta-band p{
+      font-size:1.05rem;color:rgba(28,28,28,0.65);
+      margin-bottom:36px;max-width:500px;
+      margin-left:auto;margin-right:auto;
+    }
+    .cta-btns{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;}
+    .btn-preto{
+      display:inline-flex;align-items:center;gap:8px;
+      background:var(--preto);color:#fff;
+      padding:15px 34px;border-radius:4px;
+      font-weight:700;text-decoration:none;transition:all 0.3s;
+    }
+    .btn-preto:hover{background:#333;transform:translateY(-2px);}
+    .btn-outline-preto{
+      display:inline-flex;align-items:center;gap:8px;
+      border:2px solid var(--preto);color:var(--preto);
+      padding:15px 34px;border-radius:4px;
+      font-weight:600;text-decoration:none;transition:all 0.3s;
+    }
+    .btn-outline-preto:hover{background:rgba(0,0,0,0.08);}
+
+    /* ===== FORMULÁRIO ===== */
+    .formulario{
+      padding:90px 6%;background:var(--creme);
+      display:grid;grid-template-columns:1fr 1fr;
+      gap:80px;align-items:start;
+    }
+    .form-info h2{
+      font-family:Georgia,'Times New Roman',serif;
+      font-size:2rem;font-weight:800;
+      color:var(--preto);margin-bottom:14px;
+    }
+    .form-info p{color:var(--texto);line-height:1.8;margin-bottom:28px;font-size:0.95rem;}
+    .form-highlights{display:flex;flex-direction:column;gap:14px;}
+    .fh-item{
+      display:flex;align-items:center;gap:14px;
+      background:var(--branco);border:1px solid var(--borda);
+      border-radius:6px;padding:14px 18px;
+    }
+    .fh-item span:first-child{font-size:1.3rem;}
+    .fh-item strong{display:block;font-size:0.88rem;font-weight:700;color:var(--preto);}
+    .fh-item small{color:var(--texto);font-size:0.8rem;}
+    .form-box{
+      background:var(--branco);border-radius:8px;
+      padding:40px;border:1px solid var(--borda);
+      box-shadow:0 4px 30px rgba(0,0,0,0.06);
+    }
+    .form-box h3{
+      font-family:Georgia,'Times New Roman',serif;
+      font-size:1.5rem;font-weight:700;
+      color:var(--preto);margin-bottom:22px;
+    }
+    .fg{margin-bottom:15px;}
+    .fg label{display:block;font-size:0.82rem;font-weight:600;color:var(--preto);margin-bottom:6px;}
+    .fg input,.fg select,.fg textarea{
+      width:100%;padding:12px 15px;
+      border:1.5px solid var(--borda);border-radius:4px;
+      font-size:0.93rem;font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+      color:var(--preto);background:#fff;outline:none;transition:border 0.2s;
+    }
+    .fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--amarelo);}
+    .fg textarea{height:100px;resize:vertical;}
+    .btn-form{
+      width:100%;background:var(--preto);color:#fff;
+      padding:15px;border:none;border-radius:4px;
+      font-size:0.93rem;font-weight:700;cursor:pointer;
+      font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;transition:all 0.3s;
+    }
+    .btn-form:hover{background:#333;}
+    .form-obs{text-align:center;font-size:0.76rem;color:#aaa;margin-top:10px;}
+
+    /* ===== FOOTER ===== */
+    footer{
+      background:var(--preto);
+      padding:44px 6%;
+      display:flex;justify-content:space-between;align-items:center;
+      flex-wrap:wrap;gap:20px;
+      border-top:1px solid rgba(255,255,255,0.06);
+    }
+    .footer-logo-wrap{display:flex;flex-direction:column;gap:4px;}
+    .footer-logo{
+      font-family:Georgia,'Times New Roman',serif;
+      font-size:1rem;font-weight:800;color:#fff;
+      display:flex;align-items:center;gap:7px;
+    }
+    .footer-dot{width:9px;height:9px;background:var(--amarelo);border-radius:50%;}
+    .footer-by{font-size:0.72rem;color:rgba(255,255,255,0.25);letter-spacing:1px;}
+    footer p{color:rgba(255,255,255,0.25);font-size:0.78rem;}
+    .footer-links{display:flex;gap:18px;}
+    .footer-links a{
+      color:rgba(255,255,255,0.3);text-decoration:none;
+      font-size:0.78rem;transition:color 0.2s;
+    }
+    .footer-links a:hover{color:var(--amarelo);}
+
+    /* ===== WPP FLUTUANTE ===== */
+    .wpp-float{
+      position:fixed;bottom:28px;right:28px;z-index:200;
+      background:#25D366;color:#fff;
+      display:flex;align-items:center;gap:10px;
+      padding:12px 22px;border-radius:100px;
+      text-decoration:none;font-weight:700;font-size:0.88rem;
+      box-shadow:0 4px 24px rgba(37,211,102,0.45);
+      transition:all 0.3s;
+    }
+    .wpp-float:hover{transform:translateY(-3px);box-shadow:0 8px 32px rgba(37,211,102,0.55);}
+
+    /* ===== RESPONSIVO ===== */
+    @media(max-width:960px){
+      nav ul{display:none;}
+      .hero-titulo{font-size:3.2rem;}
+      .hero-nums{position:static;grid-template-columns:repeat(2,1fr);}
+      .hero-content{padding:110px 6% 40px;}
+      .terraza,.infraestrutura,.localizacao,.formulario{grid-template-columns:1fr;}
+      .dif-grid{grid-template-columns:repeat(2,1fr);}
+      .galeria-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto;}
+      .g-item.tall{grid-row:span 1;}
+      .val-cards{grid-template-columns:1fr;}
+      .infra-badge-abs{display:none;}
+      footer{flex-direction:column;text-align:center;}
+    }
+    @media(max-width:600px){
+      .hero-titulo{font-size:2.5rem;}
+      .dif-grid{grid-template-columns:1fr;}
+      .galeria-grid{grid-template-columns:1fr;}
+      .hero-nums{grid-template-columns:repeat(2,1fr);}
+      .infra-lista{grid-template-columns:1fr;}
+      .val-topo{flex-direction:column;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="logo-nav">
+      <span class="logo-top">Altos de</span>
+      <div class="logo-bottom">
+        <span>Santa Helena</span>
+        <div class="logo-dot"></div>
+      </div>
+      <span class="logo-terraza">por Terraza Urbanismo</span>
+    </div>
+    <ul>
+      <li><a href="#diferenciais">Diferenciais</a></li>
+      <li><a href="#galeria">Galeria</a></li>
+      <li><a href="#terraza">A Construtora</a></li>
+      <li><a href="#valorizacao">Valorização</a></li>
+      <li><a href="#implantacao">Implantação</a></li>
+      <li><a href="#formulario" class="nav-cta">Quero informações</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-badge">📍 Tijucas · Santa Catarina</div>
+    <h1>Altos de</h1>
+    <div class="hero-titulo">
+      Santa Helena
+      <div class="dot-grande"></div>
+    </div>
+    <p>Um bairro planejado completo com parque central, lago, ciclovia, quadras esportivas, playground e infraestrutura 100% subterrânea. Pela Terraza Urbanismo, criadores do Bosque da Mata.</p>
+    <div class="hero-btns">
+      <a href="#formulario" class="btn-amarelo">Quero mais informações →</a>
+      <a href="#galeria" class="btn-branco-outline">Ver o empreendimento</a>
+    </div>
+  </div>
+  <div class="hero-nums">
+    <div class="hero-num"><h3>+1.200</h3><p>Lotes disponíveis</p></div>
+    <div class="hero-num"><h3>3 zonas</h3><p>Residencial e misto</p></div>
+    <div class="hero-num"><h3>100%</h3><p>Infraestrutura subterrânea</p></div>
+    <div class="hero-num"><h3>Tijucas</h3><p>Santa Catarina</p></div>
+  </div>
+</section>
+
+<!-- TERRAZA - A CONSTRUTORA -->
+<section class="terraza" id="terraza">
+  <div class="terraza-texto">
+    <h2>A construtora por trás do projeto</h2>
+    <h3>Terraza Urbanismo:<br>quem transforma cidades</h3>
+    <p>A Terraza Urbanismo é especialista em bairros planejados no Sul do Brasil, com projetos que unem infraestrutura completa, áreas verdes e qualidade de vida em regiões de alta valorização.</p>
+    <p>Antes do Altos de Santa Helena, a Terraza já entregou o <strong style="color:#fff;">Bosque da Mata</strong>, também em Tijucas, com resultados que superaram as expectativas de todos os investidores e moradores.</p>
+    <div class="terraza-numeros">
+      <div class="terraza-num"><h4>+2</h4><p>Empreendimentos em Tijucas</p></div>
+      <div class="terraza-num"><h4>100%</h4><p>Infraestrutura entregue</p></div>
+      <div class="terraza-num"><h4>SC</h4><p>Atuação no Sul do Brasil</p></div>
+      <div class="terraza-num"><h4>✓</h4><p>Registro em cartório</p></div>
+    </div>
+  </div>
+  <div class="bosque-card">
+    <div class="bosque-img">
+      <img src="images/bosque-da-mata.jpg" alt="Bosque da Mata" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"/>
+    </div>
+    <div class="bosque-info">
+      <div class="bosque-tag">✅ Caso de sucesso</div>
+      <h4>Bosque da Mata</h4>
+      <p>O empreendimento anterior da Terraza em Tijucas — um sucesso de vendas e valorização que consolidou a construtora como referência na região.</p>
+      <div class="bosque-stats">
+        <div class="bosque-stat"><h5>100%</h5><p>Lotes vendidos</p></div>
+        <div class="bosque-stat"><h5>Alta</h5><p>Valorização comprovada</p></div>
+        <div class="bosque-stat"><h5>Tijucas</h5><p>Mesma cidade</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALORIZAÇÃO -->
+<section class="valorizacao" id="valorizacao">
+  <div class="val-inner">
+    <div class="val-topo">
+      <h2>Por que investir em<br>Tijucas agora?</h2>
+      <p>A cidade registra crescimento acelerado e alta demanda imobiliária. Quem investe hoje garante valorização expressiva nos próximos anos.</p>
+    </div>
+    <div class="val-cards">
+      <div class="val-card val-destaque">
+        <div class="val-num">+150%</div>
+        <h4>Valorização em Tijucas</h4>
+        <p>Crescimento imobiliário acelerado nos últimos anos, impulsionado pela expansão urbana e chegada de novas indústrias na região.</p>
+      </div>
+      <div class="val-card">
+        <div class="val-num">BR-101</div>
+        <h4>Localização estratégica</h4>
+        <p>Acesso direto à rodovia federal, a ~40 min de Florianópolis e ~30 min de Itajaí — dois dos maiores polos econômicos do Sul.</p>
+      </div>
+      <div class="val-card">
+        <div class="val-num">↑</div>
+        <h4>Demanda crescente</h4>
+        <p>Tijucas está entre os municípios catarinenses com maior crescimento populacional e de empregos, garantindo valorização contínua.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIFERENCIAIS -->
+<section class="diferenciais" id="diferenciais">
+  <div class="section-tag">Por que escolher</div>
+  <h2 class="section-h2">Um bairro pensado<br>para a sua qualidade de vida</h2>
+  <div class="dif-grid">
+    <div class="dif-card">
+      <span class="dif-icon">🌿</span>
+      <h3>Parque Central com Lago</h3>
+      <p>Área verde central com lago paisagístico, bancos, árvores floridas e espaços de contemplação para toda a família.</p>
+    </div>
+    <div class="dif-card">
+      <span class="dif-icon">🚴</span>
+      <h3>Ciclovia e Academia Outdoor</h3>
+      <p>Rede de ciclovias integradas ao parque com equipamentos de ginástica ao ar livre e pistas para caminhada e corrida.</p>
+    </div>
+    <div class="dif-card">
+      <span class="dif-icon">🏓</span>
+      <h3>Esportes e Lazer</h3>
+      <p>Quadras poliesportivas, mesas de ping-pong outdoor e áreas de lazer para todas as idades.</p>
+    </div>
+    <div class="dif-card">
+      <span class="dif-icon">🛝</span>
+      <h3>Playground Natural</h3>
+      <p>Playground integrado à natureza com equipamentos em madeira, balanços e espaços de recreação infantil seguros.</p>
+    </div>
+    <div class="dif-card">
+      <span class="dif-icon">⚡</span>
+      <h3>Infraestrutura Subterrânea</h3>
+      <p>Rede elétrica, água, esgoto e fibra óptica totalmente subterrâneas. Ruas asfaltadas com iluminação LED.</p>
+    </div>
+    <div class="dif-card">
+      <span class="dif-icon">🏙️</span>
+      <h3>Uso Misto e Comercial</h3>
+      <p>Quadras para comércio, serviços e verticalização garantem praticidade e valorização constante do bairro.</p>
+    </div>
+  </div>
+</section>
+
+<!-- GALERIA -->
+<section class="galeria" id="galeria">
+  <div class="galeria-header">
+    <h2>Conheça o empreendimento</h2>
+    <p>Renders e perspectivas do projeto</p>
+  </div>
+  <div class="galeria-grid">
+    <div class="g-item tall">
+      <div class="g-img"><img src="images/lago-parque.jpg" alt="Lago e parque" onerror="this.parentElement.style.background='#1a2a1a';this.remove()"/></div>
+      <div class="g-label">Parque Central com Lago</div>
+    </div>
+    <div class="g-item">
+      <div class="g-img"><img src="images/boulevard.jpg" alt="Boulevard" onerror="this.parentElement.style.background='#1a1a2a';this.remove()"/></div>
+      <div class="g-label">Boulevard Arborizado</div>
+    </div>
+    <div class="g-item">
+      <div class="g-img"><img src="images/ciclovia.jpg" alt="Ciclovia" onerror="this.parentElement.style.background='#2a1a1a';this.remove()"/></div>
+      <div class="g-label">Ciclovia e Fitness</div>
+    </div>
+    <div class="g-item">
+      <div class="g-img"><img src="images/playground.jpg" alt="Playground" onerror="this.parentElement.style.background='#1a2a2a';this.remove()"/></div>
+      <div class="g-label">Playground Natural</div>
+    </div>
+    <div class="g-item">
+      <div class="g-img"><img src="images/pingpong.jpg" alt="Área esportiva" onerror="this.parentElement.style.background='#2a2a1a';this.remove()"/></div>
+      <div class="g-label">Área Esportiva</div>
+    </div>
+  </div>
+</section>
+
+<!-- INFRAESTRUTURA -->
+<section class="infraestrutura">
+  <div style="position:relative;">
+    <div class="infra-img">
+      <img src="images/infraestrutura.jpg" alt="Infraestrutura" onerror="this.parentElement.style.minHeight='320px'"/>
+    </div>
+    <div class="infra-badge-abs">Infra 100% Subterrânea</div>
+  </div>
+  <div class="infra-texto">
+    <div class="section-tag">Infraestrutura completa</div>
+    <h2>Tudo pronto para você construir e morar</h2>
+    <p>O Altos de Santa Helena foi projetado com infraestrutura completa e subterrânea, garantindo beleza, segurança e praticidade.</p>
+    <ul class="infra-lista">
+      <li>Asfalto nas ruas</li>
+      <li>Calçadas pavimentadas</li>
+      <li>Rede de água potável</li>
+      <li>Rede de esgoto</li>
+      <li>Energia subterrânea</li>
+      <li>Iluminação LED</li>
+      <li>Fibra óptica</li>
+      <li>Drenagem pluvial</li>
+    </ul>
+  </div>
+</section>
+
+<!-- IMPLANTAÇÃO -->
+<section class="implantacao" id="implantacao">
+  <div class="section-tag">Planta do empreendimento</div>
+  <h2 class="section-h2">Conheça a Implantação Completa</h2>
+  <div class="implantacao-img">
+    <img src="images/implantacao.jpg" alt="Implantação Altos de Santa Helena" onerror="this.parentElement.style.background='#f0ece0';this.parentElement.style.minHeight='400px';this.parentElement.innerHTML='<p style=padding:80px;text-align:center;color:#999>Mapa de implantação</p>'"/>
+  </div>
+  <div class="impl-legenda">
+    <div class="leg"><div class="leg-cor" style="background:#8B9E3A;"></div>Quadras residenciais — 1 unidade</div>
+    <div class="leg"><div class="leg-cor" style="background:#3ABAA0;"></div>Quadras residenciais — 2 unidades</div>
+    <div class="leg"><div class="leg-cor" style="background:#3A7AB5;"></div>Uso misto, comercial e vertical</div>
+  </div>
+</section>
+
+<!-- LOCALIZAÇÃO -->
+<section class="localizacao" id="localizacao">
+  <div>
+    <div class="loc-tag">Onde fica</div>
+    <h2>Localização privilegiada em Tijucas, SC</h2>
+    <p>Tijucas cresce aceleradamente entre Florianópolis e Itajaí, com acesso direto à BR-101 e infraestrutura urbana completa.</p>
+    <div class="loc-items">
+      <div class="loc-item">
+        <div class="loc-icone">🛣️</div>
+        <div><strong>Acesso à BR-101</strong><span>Conexão rápida com a rodovia federal</span></div>
+      </div>
+      <div class="loc-item">
+        <div class="loc-icone">✈️</div>
+        <div><strong>~40 min de Florianópolis</strong><span>Próximo ao aeroporto internacional</span></div>
+      </div>
+      <div class="loc-item">
+        <div class="loc-icone">🚢</div>
+        <div><strong>~30 min de Itajaí</strong><span>Maior porto de Santa Catarina</span></div>
+      </div>
+      <div class="loc-item">
+        <div class="loc-icone">📈</div>
+        <div><strong>Alta valorização imobiliária</strong><span>Região com crescimento e demanda aquecida</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="loc-mapa">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d28425.5!2d-48.633!3d-27.235!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94d8e7e0c5b4b4b5%3A0xabc!2sTijucas%2C+SC!5e0!3m2!1spt-BR!2sbr!4v1620000000000" allowfullscreen loading="lazy"></iframe>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-band">
+  <h2>Garanta seu lote hoje mesmo</h2>
+  <p>As melhores unidades estão sendo negociadas. Fale agora com um consultor e descubra as condições especiais.</p>
+  <div class="cta-btns">
+    <a href="https://wa.me/5547999999999?text=Olá! Gostaria de saber mais sobre o Altos de Santa Helena" target="_blank" class="btn-preto">💬 Falar no WhatsApp</a>
+    <a href="#formulario" class="btn-outline-preto">Receber material completo</a>
+  </div>
+</section>
+
+<!-- FORMULÁRIO -->
+<section class="formulario" id="formulario">
+  <div class="form-info">
+    <div class="section-tag">Fale com um consultor</div>
+    <h2>Receba o material completo do empreendimento</h2>
+    <p>Preencha e nossa equipe entra em contato em até 24h com tabela de preços, condições e planta completa.</p>
+    <div class="form-highlights">
+      <div class="fh-item"><span>📋</span><div><strong>Tabela de preços e condições</strong><small>Parcelamento facilitado no lançamento</small></div></div>
+      <div class="fh-item"><span>🗺️</span><div><strong>Planta e memorial descritivo</strong><small>Detalhes completos do projeto</small></div></div>
+      <div class="fh-item"><span>🏡</span><div><strong>Visita ao empreendimento</strong><small>Agende com nosso consultor</small></div></div>
+      <div class="fh-item"><span>✅</span><div><strong>Bosque da Mata vendido 100%</strong><small>Mesmo padrão Terraza — garanta o seu</small></div></div>
+    </div>
+  </div>
+  <div class="form-box">
+    <h3>Quero mais informações</h3>
+    <form action="https://formsubmit.co/contato@47gestao.com.br" method="POST">
+      <input type="hidden" name="_subject" value="Lead — Altos de Santa Helena"/>
+      <input type="hidden" name="_next" value="https://altossantahelena.com.br"/>
+      <input type="hidden" name="_captcha" value="false"/>
+      <div class="fg"><label>Nome completo *</label><input type="text" name="nome" placeholder="Seu nome" required/></div>
+      <div class="fg"><label>WhatsApp *</label><input type="tel" name="whatsapp" placeholder="(47) 99999-9999" required/></div>
+      <div class="fg"><label>E-mail</label><input type="email" name="email" placeholder="seu@email.com"/></div>
+      <div class="fg">
+        <label>Tipo de interesse</label>
+        <select name="tipo">
+          <option value="" disabled selected>Selecione...</option>
+          <option>Residencial — 1 unidade</option>
+          <option>Residencial — 2 unidades</option>
+          <option>Comercial / Uso Misto</option>
+          <option>Investimento</option>
+          <option>Quero mais informações</option>
+        </select>
+      </div>
+      <div class="fg"><label>Mensagem</label><textarea name="mensagem" placeholder="Alguma dúvida ou informação adicional?"></textarea></div>
+      <button type="submit" class="btn-form">Quero receber as informações →</button>
+      <p class="form-obs">✅ Sem compromisso · Retorno em até 24h</p>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo-wrap">
+    <div class="footer-logo">Altos de <div class="footer-dot"></div> Santa Helena</div>
+    <span class="footer-by">por Terraza Urbanismo</span>
+  </div>
+  <p>© 2025 Altos de Santa Helena · Tijucas, SC · Todos os direitos reservados</p>
+  <div class="footer-links">
+    <a href="https://www.terrazaurbanismo.com.br" target="_blank">terrazaurbanismo.com.br</a>
+    <a href="#formulario">Fale conosco</a>
+  </div>
+</footer>
+
+<a href="https://wa.me/5547999999999?text=Olá! Gostaria de saber mais sobre o Altos de Santa Helena" target="_blank" class="wpp-float">💬 Falar no WhatsApp</a>
+
+</body>
+</html>

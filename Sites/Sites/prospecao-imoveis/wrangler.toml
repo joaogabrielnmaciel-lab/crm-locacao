@@ -1,0 +1,17 @@
+name = "prospecao-imoveis"
+main = "src/worker.js"
+compatibility_date = "2025-05-28"
+
+[assets]
+directory = "./public"
+binding   = "ASSETS"
+
+[[d1_databases]]
+binding     = "DB"
+database_name = "prospecao-db"
+database_id   = "c57f1c25-282b-43a1-a6bb-53dca50e1199"
+
+# R2 desativado — ativar no dashboard Cloudflare primeiro
+# [[r2_buckets]]
+# binding     = "R2"
+# bucket_name = "prospecao-fotos"

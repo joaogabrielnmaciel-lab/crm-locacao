@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Redirecionando...</title>
+  <script src="data/imoveis.js"></script>
+  <script>
+    // Redirect old ?id=X URLs to new /imovel/slug/id format
+    var params = new URLSearchParams(window.location.search);
+    var id = Number(params.get('id'));
+    var im = typeof IMOVEIS !== 'undefined' && IMOVEIS.find(function(i){ return i.id === id; });
+    if (im && im.slug) {
+      window.location.replace('/imovel/' + im.slug + '/' + im.id);
+    } else {
+      window.location.replace('/');
+    }
+  </script>
+</head>
+<body><p>Redirecionando...</p></body>
+</html>

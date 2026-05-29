@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Flores de Sal Bairro Cidade | Lotes em Tijucas SC - O Maior Bairro Planejado do Sul do Brasil</title>
+  <meta name="description" content="Flores de Sal em Tijucas SC: o maior bairro planejado do sul do Brasil. Lotes com +70.000m² de área verde, lago, parques e infraestrutura completa. Veja os lotes disponíveis.">
+  <link rel="canonical" href="https://floresdesal.com.br/">
+  <meta property="og:title" content="Flores de Sal Bairro Cidade | Lotes em Tijucas SC">
+  <meta property="og:description" content="O maior bairro planejado do sul do Brasil. Lotes residenciais em Tijucas com parques, lago, praças e infraestrutura completa.">
+  <meta property="og:image" content="img/hero.jpg">
+  <meta property="og:url" content="https://floresdesal.com.br/">
+  <meta property="og:type" content="website">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Inter',-apple-system,sans-serif;color:#333;overflow-x:hidden}
+    img{max-width:100%;height:auto}
+
+    /* NAV */
+    .nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:10px 24px;display:flex;align-items:center;justify-content:space-between;background:rgba(30,60,80,0.95);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,0.1)}
+    .nav-logo{text-decoration:none;display:flex;align-items:center}
+    .nav-logo img{height:36px;filter:brightness(0) invert(1)}
+    .nav-menu{display:flex;align-items:center;gap:20px;list-style:none}
+    .nav-menu a{color:rgba(255,255,255,0.8);text-decoration:none;font-size:13px;font-weight:500;transition:color .3s;letter-spacing:0.5px}
+    .nav-menu a:hover{color:#D4A853}
+    .nav-right{display:flex;align-items:center;gap:12px}
+    .nav-cta{background:#D4A853;color:#1a1a1a;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:800;font-size:14px;letter-spacing:1px;text-transform:uppercase;transition:all .3s;box-shadow:0 4px 15px rgba(212,168,83,0.3)}
+    .nav-cta:hover{background:#c49843;transform:translateY(-2px);box-shadow:0 6px 20px rgba(212,168,83,0.5)}
+    .nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none}
+    .nav-hamburger span{width:24px;height:2px;background:#fff;transition:all .3s}
+    .nav-mobile{display:none;position:fixed;top:60px;left:0;right:0;background:#1E3C50;padding:20px 24px;flex-direction:column;gap:16px;border-bottom:2px solid #D4A853;z-index:99}
+    .nav-mobile.open{display:flex}
+    .nav-mobile a{color:#fff;text-decoration:none;font-size:15px;font-weight:500;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.1)}
+    .nav-mobile a:last-child{border-bottom:none}
+    @media(max-width:900px){
+      .nav-menu{display:none}
+      .nav-hamburger{display:flex}
+    }
+
+    /* HERO */
+    .hero{min-height:100vh;background:linear-gradient(rgba(20,45,60,0.45),rgba(10,30,45,0.65)),url('img/hero-render.jpg') center/cover no-repeat;display:flex;flex-direction:column;justify-content:center;padding:120px 24px 60px;color:#fff}
+    .hero-badge{display:inline-block;background:rgba(212,168,83,0.2);border:1px solid #D4A853;color:#D4A853;padding:8px 20px;border-radius:30px;font-size:12px;font-weight:600;letter-spacing:3px;text-transform:uppercase;margin-bottom:24px;backdrop-filter:blur(5px)}
+    .hero h1{font-size:clamp(36px,7vw,64px);font-weight:800;line-height:1.1;margin-bottom:16px;max-width:700px}
+    .hero h1 span{display:block;color:#D4A853;font-size:clamp(20px,4vw,32px);font-weight:600;margin-top:8px}
+    .hero-desc{font-size:clamp(16px,2.5vw,20px);line-height:1.6;max-width:600px;margin-bottom:40px;opacity:0.9}
+    .hero-btns{display:flex;flex-wrap:wrap;gap:12px}
+    .btn-primary{background:#D4A853;color:#1a1a1a;padding:16px 32px;border-radius:8px;text-decoration:none;font-weight:700;font-size:16px;border:none;cursor:pointer;transition:all .3s;display:inline-flex;align-items:center;gap:8px}
+    .btn-primary:hover{background:#c49843;transform:translateY(-3px);box-shadow:0 10px 30px rgba(212,168,83,0.4)}
+    .btn-outline{border:2px solid rgba(255,255,255,0.5);color:#fff;padding:16px 32px;border-radius:8px;text-decoration:none;font-weight:600;font-size:16px;transition:all .3s;display:inline-flex;align-items:center;gap:8px;background:transparent}
+    .btn-outline:hover{border-color:#fff;background:rgba(255,255,255,0.1);transform:translateY(-3px)}
+
+    /* STATS */
+    .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:0;background:#1E3C50;color:#fff}
+    .stat{padding:28px 16px;text-align:center;border-right:1px solid rgba(255,255,255,0.1)}
+    .stat:last-child{border-right:none}
+    .stat-num{font-size:clamp(28px,5vw,40px);font-weight:800;color:#D4A853}
+    .stat-label{font-size:12px;text-transform:uppercase;letter-spacing:1px;opacity:0.8;margin-top:4px}
+
+    /* SECTIONS */
+    section{padding:80px 24px}
+    .section-badge{display:inline-block;background:rgba(30,60,80,0.1);color:#1E3C50;padding:6px 16px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px}
+    .section-title{font-size:clamp(28px,5vw,42px);font-weight:800;color:#1E3C50;line-height:1.2;margin-bottom:12px}
+    .section-sub{font-size:16px;color:#666;line-height:1.7;max-width:600px;margin-bottom:40px}
+    .container{max-width:1100px;margin:0 auto}
+
+    /* SOBRE */
+    .sobre{background:#f8f9fa}
+    .sobre-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+    .sobre-visual{border-radius:12px;overflow:hidden;height:400px;background:url('img/passeios.jpg') center/cover;position:relative}
+    .sobre-visual::after{content:'Passeios arborizados no Flores de Sal';position:absolute;bottom:0;left:0;right:0;padding:16px 20px;background:linear-gradient(transparent,rgba(0,0,0,0.7));color:#fff;font-size:14px}
+    .sobre-features{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px}
+    .sobre-feat{display:flex;align-items:flex-start;gap:10px;font-size:14px;padding:12px;background:#fff;border-radius:8px}
+    .sobre-feat-icon{font-size:20px;flex-shrink:0}
+
+    /* GALERIA */
+    .galeria{background:#1E3C50;color:#fff;overflow:hidden}
+    .galeria .section-badge{background:rgba(212,168,83,0.2);color:#D4A853}
+    .galeria .section-title{color:#fff}
+    .galeria .section-sub{color:rgba(255,255,255,0.7)}
+    .galeria-main{position:relative;border-radius:12px;overflow:hidden;height:450px;margin-bottom:16px}
+    .galeria-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity .6s}
+    .galeria-slide.active{opacity:1}
+    .galeria-caption{position:absolute;bottom:0;left:0;right:0;padding:20px;background:linear-gradient(transparent,rgba(0,0,0,0.7));font-size:14px}
+    .galeria-thumbs{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px}
+    .galeria-thumb{min-width:100px;height:70px;border-radius:8px;background-size:cover;background-position:center;cursor:pointer;opacity:0.5;transition:all .3s;border:2px solid transparent;flex-shrink:0}
+    .galeria-thumb.active{opacity:1;border-color:#D4A853}
+    .galeria-thumb:hover{opacity:0.8}
+
+    /* DIFERENCIAIS */
+    .diferenciais{background:#f8f9fa}
+    .dif-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+    .dif-card{background:#fff;padding:28px;border-radius:12px;border:1px solid #eee;transition:all .3s}
+    .dif-card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,0,0,0.08)}
+    .dif-icon{width:50px;height:50px;background:rgba(30,60,80,0.08);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:16px}
+    .dif-card h3{font-size:18px;color:#1E3C50;margin-bottom:8px}
+    .dif-card p{font-size:14px;color:#666;line-height:1.6}
+
+    /* PARQUE */
+    .parque{background:linear-gradient(rgba(30,60,80,0.9),rgba(20,45,60,0.95)),url('img/parque-flores.jpg') center/cover;color:#fff}
+    .parque .section-badge{background:rgba(212,168,83,0.2);color:#D4A853}
+    .parque .section-title{color:#fff}
+    .parque .section-sub{color:rgba(255,255,255,0.7)}
+    .parque-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+    .parque-item{border-radius:12px;overflow:hidden;position:relative;height:220px;background-size:cover;background-position:center;cursor:pointer;transition:transform .3s}
+    .parque-item:hover{transform:scale(1.02)}
+    .parque-item::after{content:attr(data-label);position:absolute;bottom:0;left:0;right:0;padding:14px 16px;background:linear-gradient(transparent,rgba(0,0,0,0.8));color:#fff;font-weight:600;font-size:14px}
+
+    /* PRACAS */
+    .pracas-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-top:40px}
+    .praca-card{border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 4px 20px rgba(0,0,0,0.08)}
+    .praca-img{height:200px;background-size:cover;background-position:center}
+    .praca-info{padding:20px}
+    .praca-info h3{font-size:18px;color:#1E3C50;margin-bottom:8px}
+    .praca-info p{font-size:14px;color:#666;line-height:1.6}
+
+    /* LOCALIZACAO */
+    .localizacao{background:#f8f9fa}
+    .loc-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+    .loc-mapa{border-radius:12px;overflow:hidden;height:350px}
+    .loc-mapa iframe{width:100%;height:100%;border:0}
+    .loc-destaque{display:flex;flex-direction:column;gap:16px}
+    .loc-item{display:flex;align-items:flex-start;gap:12px;padding:16px;background:#fff;border-radius:10px;border-left:4px solid #D4A853}
+    .loc-item-icon{font-size:24px;flex-shrink:0}
+    .loc-item h4{font-size:15px;color:#1E3C50;margin-bottom:4px}
+    .loc-item p{font-size:13px;color:#666}
+
+    /* CORRETOR */
+    .corretor{padding:80px 24px;background:#fff}
+    .corretor .section-badge{display:inline-block;background:rgba(30,60,80,0.1);color:#1E3C50;padding:6px 16px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px}
+    .corretor-grid{display:grid;grid-template-columns:300px 1fr;gap:40px;max-width:900px;margin:0 auto;align-items:start}
+    .corretor-foto{border-radius:12px;overflow:hidden}
+    .corretor-foto img{width:100%;display:block}
+    .corretor-info h3{font-size:28px;color:#1E3C50;margin-bottom:4px}
+    .cargo{color:#D4A853;font-weight:600;font-size:14px;margin-bottom:16px}
+    .corretor-info p{font-size:15px;color:#555;line-height:1.7;margin-bottom:16px}
+    .corretor-stats{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding-top:16px;border-top:1px solid #eee;margin-top:20px}
+    .corretor-stat{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#555;text-transform:uppercase;letter-spacing:0.5px;font-weight:600}
+    .corretor-stat-icon{font-size:20px;flex-shrink:0}
+    .corretor-cta{margin-top:24px}
+    .corretor-cta .btn-primary{width:100%}
+
+    /* DEPOIMENTOS */
+    .depoimentos{background:#f8f9fa}
+    .dep-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+    .dep-card{background:#fff;padding:28px;border-radius:12px;border:1px solid #eee}
+    .dep-stars{color:#D4A853;font-size:16px;margin-bottom:12px}
+    .dep-text{font-size:14px;color:#555;line-height:1.7;margin-bottom:16px;font-style:italic}
+    .dep-author{font-weight:700;color:#1E3C50;font-size:14px}
+
+    /* FAQ */
+    .faq{background:#fff}
+    .faq-list{max-width:750px;margin:0 auto}
+    .faq-item{border-bottom:1px solid #eee;padding:20px 0}
+    .faq-q{display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-weight:700;color:#1E3C50;font-size:16px;gap:12px}
+    .faq-q::after{content:'+';font-size:24px;color:#D4A853;transition:transform .3s;flex-shrink:0}
+    .faq-item.open .faq-q::after{transform:rotate(45deg)}
+    .faq-a{max-height:0;overflow:hidden;transition:max-height .3s;font-size:14px;color:#666;line-height:1.7}
+    .faq-item.open .faq-a{max-height:300px;padding-top:12px}
+
+    /* FORMULARIO */
+    .formulario{background:linear-gradient(135deg,#1E3C50,#142D3C);padding:80px 24px;color:#fff}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;max-width:900px;margin:0 auto;align-items:center}
+    .form-info h2{font-size:32px;margin-bottom:16px}
+    .form-info p{font-size:16px;opacity:0.8;line-height:1.7;margin-bottom:24px}
+    .form-box{background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);padding:32px;border-radius:12px;border:1px solid rgba(255,255,255,0.15)}
+    .form-group{margin-bottom:16px}
+    .form-group label{display:block;font-size:13px;font-weight:600;margin-bottom:6px;opacity:0.9}
+    .form-group input,.form-group select{width:100%;padding:12px 16px;border:1px solid rgba(255,255,255,0.2);border-radius:8px;background:rgba(255,255,255,0.08);color:#fff;font-size:14px;font-family:inherit;transition:border-color .3s}
+    .form-group input::placeholder{color:rgba(255,255,255,0.4)}
+    .form-group input:focus,.form-group select:focus{outline:none;border-color:#D4A853}
+    .form-group select{appearance:none;cursor:pointer}
+    .form-group select option{background:#1E3C50;color:#fff}
+    .form-submit{width:100%;padding:16px;background:#D4A853;color:#1a1a1a;border:none;border-radius:8px;font-size:16px;font-weight:700;cursor:pointer;transition:all .3s;margin-top:8px}
+    .form-submit:hover{background:#c49843;transform:translateY(-2px)}
+
+    /* CTA FINAL */
+    .cta-final{background:linear-gradient(rgba(30,60,80,0.85),rgba(20,45,60,0.9)),url('img/lago.jpg') center/cover;padding:80px 24px;text-align:center;color:#fff}
+    .cta-final h2{font-size:clamp(28px,5vw,40px);font-weight:800;margin-bottom:16px}
+    .cta-final p{font-size:18px;opacity:0.85;margin-bottom:32px;max-width:600px;margin-left:auto;margin-right:auto}
+
+    /* FOOTER */
+    footer{background:#0f1f2a;color:rgba(255,255,255,0.6);padding:40px 24px;text-align:center;font-size:13px;line-height:1.8}
+    footer a{color:#D4A853;text-decoration:none}
+    footer .footer-social{margin:16px 0;display:flex;justify-content:center;gap:20px}
+    footer .footer-social a{font-size:14px;opacity:0.7;transition:opacity .3s}
+    footer .footer-social a:hover{opacity:1}
+    footer .footer-legal{margin-top:16px;font-size:11px;opacity:0.5}
+
+    /* WHATSAPP FLUTUANTE */
+    .whatsapp-float{position:fixed;bottom:24px;right:24px;z-index:99;width:60px;height:60px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,0.4);transition:all .3s;text-decoration:none}
+    .whatsapp-float:hover{transform:scale(1.1);box-shadow:0 6px 28px rgba(37,211,102,0.5)}
+    .whatsapp-float svg{width:30px;height:30px;fill:#fff}
+
+    /* RESPONSIVE */
+    @media(max-width:768px){
+      .sobre-grid,.loc-grid,.form-grid,.corretor-grid{grid-template-columns:1fr}
+      .sobre-visual{height:250px}
+      .galeria-main{height:280px}
+      .stats{grid-template-columns:repeat(2,1fr)}
+      .stat{border-bottom:1px solid rgba(255,255,255,0.1)}
+      .corretor-foto{max-width:280px;margin:0 auto}
+      .corretor-stats{grid-template-columns:1fr}
+      .parque-grid{grid-template-columns:1fr 1fr}
+      .parque-item{height:180px}
+    }
+    @media(max-width:480px){
+      .parque-grid{grid-template-columns:1fr}
+      .stats{grid-template-columns:1fr 1fr}
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"RealEstateListing",
+    "name":"Flores de Sal Bairro Cidade",
+    "description":"O maior bairro planejado do sul do Brasil em Tijucas SC. Lotes residenciais com mais de 70.000m² de área verde, lago, parques e infraestrutura completa.",
+    "url":"https://floresdesal.com.br/",
+    "address":{
+      "@type":"PostalAddress",
+      "streetAddress":"Rodovia SC-410, km 8, n. 3840, Nova Descoberta",
+      "addressLocality":"Tijucas",
+      "addressRegion":"SC",
+      "addressCountry":"BR"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"LocalBusiness",
+    "name":"João Maciel - Consultor Imobiliário",
+    "description":"Consultor imobiliário especializado em lotes na Costa Esmeralda Catarinense. CRECI-SC ativo.",
+    "address":{"@type":"PostalAddress","addressLocality":"Tijucas","addressRegion":"SC","addressCountry":"BR"},
+    "telephone":"+554796268759",
+    "url":"https://floresdesal.com.br/"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {"@type":"Question","name":"Onde fica o Flores de Sal?","acceptedAnswer":{"@type":"Answer","text":"Na Rodovia SC-410, km 8, Nova Descoberta, Tijucas SC. A 3 minutos do centro de Tijucas e a 15 minutos de Balneário Camboriú."}},
+      {"@type":"Question","name":"Quem é a incorporadora do Flores de Sal?","acceptedAnswer":{"@type":"Answer","text":"O Flores de Sal é desenvolvido pela Urbanicidades Loteadora em parceria com a Petrasal is."}},
+      {"@type":"Question","name":"Quais são as áreas de lazer do empreendimento?","acceptedAnswer":{"@type":"Answer","text":"Mais de 70.000m² de área verde com Parque das Flores, lago com trapiche, praças temáticas, espaço food trucks, espaço teen, gramado pet friendly e quadras esportivas."}},
+      {"@type":"Question","name":"O Flores de Sal aceita financiamento?","acceptedAnswer":{"@type":"Answer","text":"Sim. Consulte condições de pagamento diretamente com nosso especialista para ter as melhores condições."}}
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="#" class="nav-logo"><img src="img/logo.svg" alt="Flores de Sal Bairro Cidade - Lotes em Tijucas SC"></a>
+  <ul class="nav-menu">
+    <li><a href="#sobre">O Projeto</a></li>
+    <li><a href="#galeria">Galeria</a></li>
+    <li><a href="#diferenciais">Diferenciais</a></li>
+    <li><a href="#parque">Lazer</a></li>
+    <li><a href="#localizacao">Localização</a></li>
+    <li><a href="#corretor">Corretor</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="#formulario" class="nav-cta">Quero um Lote</a>
+  </div>
+  <button class="nav-hamburger" onclick="document.querySelector('.nav-mobile').classList.toggle('open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav-mobile">
+  <a href="#sobre" onclick="this.parentElement.classList.remove('open')">O Projeto</a>
+  <a href="#galeria" onclick="this.parentElement.classList.remove('open')">Galeria</a>
+  <a href="#diferenciais" onclick="this.parentElement.classList.remove('open')">Diferenciais</a>
+  <a href="#parque" onclick="this.parentElement.classList.remove('open')">Lazer</a>
+  <a href="#localizacao" onclick="this.parentElement.classList.remove('open')">Localização</a>
+  <a href="#corretor" onclick="this.parentElement.classList.remove('open')">Corretor</a>
+  <a href="#faq" onclick="this.parentElement.classList.remove('open')">FAQ</a>
+  <a href="#formulario" onclick="this.parentElement.classList.remove('open')" style="color:#D4A853;font-weight:700">Quero um Lote</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-badge">Tijucas &mdash; Santa Catarina</div>
+  <h1>Flores de Sal<span>O maior bairro planejado do sul do Brasil</span></h1>
+  <p class="hero-desc">Lotes residenciais em Tijucas SC com mais de 70.000 m² de parques, lago com trapiche, praças temáticas e infraestrutura urbana completa. Urbanicidades.</p>
+  <div class="hero-btns">
+    <a href="#formulario" class="btn-primary">Garantir meu lote</a>
+    <a href="https://wa.me/554796268759?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20os%20lotes%20no%20Flores%20de%20Sal." target="_blank" class="btn-outline">Falar com especialista</a>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat"><div class="stat-num">70 mil+</div><div class="stat-label">m² de Parques</div></div>
+  <div class="stat"><div class="stat-num">3</div><div class="stat-label">Praças Temáticas</div></div>
+  <div class="stat"><div class="stat-num">1&ordm;</div><div class="stat-label">Bairro Cidade de Tijucas</div></div>
+  <div class="stat"><div class="stat-num">SC-410</div><div class="stat-label">Acesso Rápido</div></div>
+</div>
+
+<!-- SOBRE -->
+<section class="sobre" id="sobre">
+  <div class="container">
+    <div class="sobre-grid">
+      <div>
+        <span class="section-badge">O Empreendimento</span>
+        <h2 class="section-title">Bairro planejado em Tijucas SC &mdash; Viva com tudo por perto</h2>
+        <p class="section-sub">O Flores de Sal vai muito além de um loteamento. É o primeiro Bairro Cidade de Tijucas, com estrutura urbana completa: parques, praças, espaços de convivência e proximidade com serviços essenciais.</p>
+        <p class="section-sub">Desenvolvido pela <strong>Urbanicidades Loteadora</strong>, o projeto integra natureza, urbanismo e qualidade de vida em uma localização privilegiada na SC-410.</p>
+        <div class="sobre-features">
+          <div class="sobre-feat"><span class="sobre-feat-icon">🌳</span><span>+70.000 m² de área verde</span></div>
+          <div class="sobre-feat"><span class="sobre-feat-icon">🛣️</span><span>Avenidas planejadas</span></div>
+          <div class="sobre-feat"><span class="sobre-feat-icon">🏊</span><span>Lago com trapiche</span></div>
+          <div class="sobre-feat"><span class="sobre-feat-icon">🐕</span><span>100% Pet Friendly</span></div>
+        </div>
+        <a href="#formulario" class="btn-primary" style="margin-top:24px;background:#1E3C50;color:#fff">Quero saber mais sobre o projeto</a>
+      </div>
+      <div class="sobre-visual"></div>
+    </div>
+  </div>
+</section>
+
+<!-- GALERIA -->
+<section class="galeria" id="galeria">
+  <div class="container">
+    <span class="section-badge">Galeria</span>
+    <h2 class="section-title">Conheça o Flores de Sal</h2>
+    <p class="section-sub">Perspectivas e imagens reais do empreendimento e das obras.</p>
+    <div class="galeria-main">
+      <div class="galeria-slide active" style="background-image:url('img/parque-flores.jpg')"></div>
+      <div class="galeria-slide" style="background-image:url('img/lago.jpg')"></div>
+      <div class="galeria-slide" style="background-image:url('img/trapiche.jpg')"></div>
+      <div class="galeria-slide" style="background-image:url('img/praca-aguas.jpg')"></div>
+      <div class="galeria-slide" style="background-image:url('img/lazer1.jpg')"></div>
+      <div class="galeria-slide" style="background-image:url('img/obra1.jpg')"></div>
+      <div class="galeria-slide" style="background-image:url('img/obra2.jpg')"></div>
+      <div class="galeria-slide" style="background-image:url('img/food-trucks.jpg')"></div>
+      <div class="galeria-caption" id="galeria-caption">Parque das Flores &mdash; +70.000 m² de lazer</div>
+    </div>
+    <div class="galeria-thumbs">
+      <div class="galeria-thumb active" style="background-image:url('img/parque-flores.jpg')" data-idx="0" data-caption="Parque das Flores &mdash; +70.000 m² de lazer"></div>
+      <div class="galeria-thumb" style="background-image:url('img/lago.jpg')" data-idx="1" data-caption="Lago &mdash; Espelho d'água e paisagismo"></div>
+      <div class="galeria-thumb" style="background-image:url('img/trapiche.jpg')" data-idx="2" data-caption="Trapiche &mdash; Destino fotográfico do bairro"></div>
+      <div class="galeria-thumb" style="background-image:url('img/praca-aguas.jpg')" data-idx="3" data-caption="Praça das Águas &mdash; Ponto central"></div>
+      <div class="galeria-thumb" style="background-image:url('img/lazer1.jpg')" data-idx="4" data-caption="Espaços de lazer e convivência"></div>
+      <div class="galeria-thumb" style="background-image:url('img/obra1.jpg')" data-idx="5" data-caption="Obras em andamento &mdash; O projeto é realidade"></div>
+      <div class="galeria-thumb" style="background-image:url('img/obra2.jpg')" data-idx="6" data-caption="Evolução das obras"></div>
+      <div class="galeria-thumb" style="background-image:url('img/food-trucks.jpg')" data-idx="7" data-caption="Espaço Food Trucks"></div>
+    </div>
+    <div style="text-align:center;margin-top:32px">
+      <a href="#formulario" class="btn-primary" style="background:#D4A853;color:#1a1a1a">Agendar visita ao empreendimento</a>
+    </div>
+  </div>
+</section>
+
+<!-- DIFERENCIAIS -->
+<section class="diferenciais" id="diferenciais">
+  <div class="container" style="text-align:center">
+    <span class="section-badge">Diferenciais</span>
+    <h2 class="section-title">Por que escolher o Flores de Sal em Tijucas</h2>
+    <p class="section-sub" style="margin-left:auto;margin-right:auto">Infraestrutura de bairro planejado pensada para qualidade de vida e valorização do seu patrimônio.</p>
+    <div class="dif-grid" style="text-align:left">
+      <div class="dif-card">
+        <div class="dif-icon">🏙️</div>
+        <h3>Conceito Bairro Cidade</h3>
+        <p>Mais que um loteamento: estrutura urbana completa com lazer, comércio e moradia integrados. O primeiro de Tijucas.</p>
+      </div>
+      <div class="dif-card">
+        <div class="dif-icon">🌿</div>
+        <h3>+70.000 m² de Parques</h3>
+        <p>Parque das Flores com lago, trapiche, passeios arborizados, gramado pet friendly e espaço food trucks.</p>
+      </div>
+      <div class="dif-card">
+        <div class="dif-icon">🏛️</div>
+        <h3>3 Praças Temáticas</h3>
+        <p>Praça das Águas, Praça dos Cristais e Praça da Vizinhança com playgrounds, dog parks e espaços de convivência.</p>
+      </div>
+      <div class="dif-card">
+        <div class="dif-icon">🛡️</div>
+        <h3>Associação de Moradores</h3>
+        <p>Gestão comunitária que garante manutenção, segurança e valorização contínua do empreendimento.</p>
+      </div>
+      <div class="dif-card">
+        <div class="dif-icon">📍</div>
+        <h3>Localização Estratégica</h3>
+        <p>SC-410, a minutos do centro de Tijucas e de Balneário Camboriú. Acesso fácil à BR-101.</p>
+      </div>
+      <div class="dif-card">
+        <div class="dif-icon">🏗️</div>
+        <h3>Obras em Andamento</h3>
+        <p>O projeto já é realidade. Acompanhe a evolução das obras e garanta seu lote com infraestrutura pronta.</p>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:32px">
+      <a href="#formulario" class="btn-primary" style="background:#1E3C50;color:#fff">Receber informações dos lotes</a>
+    </div>
+  </div>
+</section>
+
+<!-- PARQUE DAS FLORES -->
+<section class="parque" id="parque">
+  <div class="container">
+    <span class="section-badge">Lazer Completo</span>
+    <h2 class="section-title">Parque das Flores &mdash; Lazer no Flores de Sal</h2>
+    <p class="section-sub">Mais de 70.000 m² de área verde com atrações para toda a família.</p>
+    <div class="parque-grid">
+      <div class="parque-item" style="background-image:url('img/lago.jpg')" data-label="Lago"></div>
+      <div class="parque-item" style="background-image:url('img/trapiche.jpg')" data-label="Trapiche"></div>
+      <div class="parque-item" style="background-image:url('img/pet-friendly.jpg')" data-label="Gramado Pet Friendly"></div>
+      <div class="parque-item" style="background-image:url('img/festividades.jpg')" data-label="Espaço Festividades"></div>
+      <div class="parque-item" style="background-image:url('img/teen.jpg')" data-label="Espaço Teen"></div>
+      <div class="parque-item" style="background-image:url('img/food-trucks.jpg')" data-label="Food Trucks"></div>
+    </div>
+    <div style="text-align:center;margin-top:32px">
+      <a href="https://wa.me/554796268759?text=Ol%C3%A1!%20Quero%20agendar%20uma%20visita%20ao%20Flores%20de%20Sal." target="_blank" class="btn-primary">Agendar visita ao Parque</a>
+    </div>
+  </div>
+</section>
+
+<!-- PRACAS -->
+<section id="pracas">
+  <div class="container" style="text-align:center">
+    <span class="section-badge">Praças</span>
+    <h2 class="section-title">Praças temáticas do Flores de Sal</h2>
+    <p class="section-sub" style="margin-left:auto;margin-right:auto">Espaços de convivência pensados para cada momento do seu dia.</p>
+    <div class="pracas-grid">
+      <div class="praca-card">
+        <div class="praca-img" style="background-image:url('img/praca-aguas.jpg')"></div>
+        <div class="praca-info">
+          <h3>Praça das Águas</h3>
+          <p>Ponto central de encontro do bairro. Conecta compras, lazer, gastronomia, negócios e moradia em um só lugar.</p>
+        </div>
+      </div>
+      <div class="praca-card">
+        <div class="praca-img" style="background-image:url('img/praca-cristais.jpg')"></div>
+        <div class="praca-info">
+          <h3>Praça dos Cristais</h3>
+          <p>Playground completo, Dog Park dedicado e Espaço Raízes para crianças explorarem a natureza com segurança.</p>
+        </div>
+      </div>
+      <div class="praca-card">
+        <div class="praca-img" style="background-image:url('img/praca-vizinhanca.jpg')"></div>
+        <div class="praca-info">
+          <h3>Praça da Vizinhança</h3>
+          <p>Duas unidades estrategicamente posicionadas com playgrounds e dog parks para a convivência do dia a dia.</p>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:32px">
+      <a href="#formulario" class="btn-primary" style="background:#1E3C50;color:#fff">Quero morar no Flores de Sal</a>
+    </div>
+  </div>
+</section>
+
+<!-- LOCALIZACAO -->
+<section class="localizacao" id="localizacao">
+  <div class="container">
+    <span class="section-badge">Localização</span>
+    <h2 class="section-title">Localização privilegiada em Tijucas SC</h2>
+    <p class="section-sub">Rodovia SC-410, km 8 &mdash; Nova Descoberta, Tijucas. Fácil acesso ao centro e à BR-101.</p>
+    <div class="loc-grid">
+      <div class="loc-mapa">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3554.5!2d-48.73!3d-27.23!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjfCsDEzJzQ4LjAiUyA0OMKwNDMnNDguMCJX!5e0!3m2!1spt-BR!2sbr!4v1" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="loc-destaque">
+        <div class="loc-item">
+          <span class="loc-item-icon">🚗</span>
+          <div><h4>Centro de Tijucas</h4><p>A apenas 3 minutos de carro</p></div>
+        </div>
+        <div class="loc-item">
+          <span class="loc-item-icon">🏖️</span>
+          <div><h4>Balneário Camboriú</h4><p>15 minutos pela BR-101</p></div>
+        </div>
+        <div class="loc-item">
+          <span class="loc-item-icon">✈️</span>
+          <div><h4>Aeroporto Navegantes</h4><p>30 minutos de distância</p></div>
+        </div>
+        <div class="loc-item">
+          <span class="loc-item-icon">🏥</span>
+          <div><h4>Serviços essenciais</h4><p>Supermercados, escolas e hospitais próximos</p></div>
+        </div>
+        <div class="loc-item">
+          <span class="loc-item-icon">🌊</span>
+          <div><h4>Praias da Costa Esmeralda</h4><p>Região que mais valoriza em SC</p></div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:32px">
+      <a href="https://wa.me/554796268759?text=Ol%C3%A1!%20Quero%20saber%20como%20chegar%20no%20Flores%20de%20Sal." target="_blank" class="btn-primary" style="background:#D4A853;color:#1a1a1a">Como chegar no empreendimento</a>
+    </div>
+  </div>
+</section>
+
+<!-- CORRETOR -->
+<section class="corretor" id="corretor">
+  <div class="container">
+    <span class="section-badge">Seu Especialista</span>
+    <h2 class="section-title">Consultor imobiliário em Tijucas SC</h2>
+    <div class="corretor-grid">
+      <div class="corretor-foto"><img src="img/joao-maciel.jpg" alt="João Maciel - Consultor imobiliário em Tijucas SC" loading="lazy"></div>
+      <div class="corretor-info">
+        <h3>João Maciel</h3>
+        <div class="cargo">Consultor imobiliário | Especialista em lotes</div>
+        <p>Sou consultor imobiliário especializado no mercado de Tijucas e da Costa Esmeralda Catarinense. Minha missão é ajudar investidores e famílias a conquistar o lote ideal — com segurança, transparência e as melhores condições do mercado.</p>
+        <p>Sou corretor credenciado, com atendimento personalizado, sem burocracia, do primeiro contato até a assinatura do contrato.</p>
+        <div class="corretor-stats">
+          <div class="corretor-stat"><span class="corretor-stat-icon">🏆</span><span>Especialista em lotes no litoral catarinense</span></div>
+          <div class="corretor-stat"><span class="corretor-stat-icon">📍</span><span>Costa Esmeralda SC | Litoral norte catarinense</span></div>
+          <div class="corretor-stat"><span class="corretor-stat-icon">✅</span><span>CRECI-SC ativo | Negociações seguras</span></div>
+          <div class="corretor-stat"><span class="corretor-stat-icon">💬</span><span>WhatsApp, presencial ou videochamada</span></div>
+        </div>
+        <div class="corretor-cta">
+          <a href="https://wa.me/554796268759?text=Ol%C3%A1%20Jo%C3%A3o!%20Quero%20saber%20mais%20sobre%20os%20lotes%20no%20Flores%20de%20Sal." target="_blank" class="btn-primary">Fale comigo no WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEPOIMENTOS -->
+<section class="depoimentos">
+  <div class="container" style="text-align:center">
+    <span class="section-badge">Depoimentos</span>
+    <h2 class="section-title">O que dizem sobre o Flores de Sal</h2>
+    <p class="section-sub" style="margin-left:auto;margin-right:auto">Quem conhece o projeto já garantiu seu lote.</p>
+    <div class="dep-grid" style="text-align:left">
+      <div class="dep-card">
+        <div class="dep-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="dep-text">"O conceito de bairro cidade é impressionante. Visitei o local e a infraestrutura que já está pronta mostra a seriedade do projeto. Fechei meu lote com o João e o atendimento foi impecável."</p>
+        <div class="dep-author">Marcos R. &mdash; Investidor</div>
+      </div>
+      <div class="dep-card">
+        <div class="dep-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="dep-text">"Procurávamos um lugar pra construir nossa casa com área verde e segurança pras crianças. O Flores de Sal tem tudo isso e mais. O parque com lago é maravilhoso!"</p>
+        <div class="dep-author">Camila e Pedro &mdash; Família</div>
+      </div>
+      <div class="dep-card">
+        <div class="dep-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="dep-text">"Tijucas está em pleno crescimento e esse empreendimento é o melhor da região. Comprei dois lotes pensando em valorização. A localização na SC-410 é perfeita."</p>
+        <div class="dep-author">Rafael T. &mdash; Empresário</div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:32px">
+      <a href="#formulario" class="btn-primary" style="background:#1E3C50;color:#fff">Garantir meu lote agora</a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="container" style="text-align:center">
+    <span class="section-badge">Dúvidas Frequentes</span>
+    <h2 class="section-title">Perguntas sobre o Flores de Sal em Tijucas</h2>
+    <div class="faq-list" style="text-align:left">
+      <div class="faq-item">
+        <div class="faq-q">Onde fica o Flores de Sal?</div>
+        <div class="faq-a">Na Rodovia SC-410, km 8, n. 3840, Nova Descoberta, Tijucas SC. A poucos minutos do centro de Tijucas e com fácil acesso à BR-101 rumo a Balneário Camboriú e Florianópolis.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Quem é a incorporadora?</div>
+        <div class="faq-a">O Flores de Sal é desenvolvido pela Urbanicidades Loteadora, com parceria da Petrasal is. Empresas com experiência em urbanismo e infraestrutura de alto padrão.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Quais são as áreas de lazer?</div>
+        <div class="faq-a">Mais de 70.000 m² de área verde com: Parque das Flores (lago, trapiche, passeios arborizados, gramado pet friendly, espaço food trucks, espaço teen, espaço festividades), Praça das Águas, Praça dos Cristais (playground, dog park) e Praça da Vizinhança.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">As obras já começaram?</div>
+        <div class="faq-a">Sim! O projeto já é realidade. As obras estão em andamento com acompanhamento periódico. Visite o plantão de vendas ou entre em contato para ver as fotos mais recentes.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">O que é o conceito Bairro Cidade?</div>
+        <div class="faq-a">É um conceito que vai além do loteamento tradicional. O Flores de Sal oferece estrutura urbana completa: espaços para lazer, parques, áreas de caminhada e proximidade com serviços essenciais como supermercados, escolas e academias.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Posso financiar meu lote?</div>
+        <div class="faq-a">Sim, existem condições especiais de pagamento. Entre em contato com nosso especialista João Maciel pelo WhatsApp para conhecer as melhores condições para o seu perfil.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">O empreendimento tem segurança?</div>
+        <div class="faq-a">Sim. O Flores de Sal conta com Associação de Moradores que garante a manutenção dos espaços comuns, segurança e valorização contínua de todo o empreendimento.</div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:32px">
+      <a href="https://wa.me/554796268759?text=Ol%C3%A1!%20Tenho%20uma%20d%C3%BAvida%20sobre%20o%20Flores%20de%20Sal." target="_blank" class="btn-primary">Tirar dúvidas pelo WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<!-- FORMULARIO -->
+<section class="formulario" id="formulario">
+  <div class="form-grid">
+    <div class="form-info">
+      <h2>Garanta seu lote em Tijucas SC no Flores de Sal</h2>
+      <p>Preencha seus dados e receba informações exclusivas sobre disponibilidade, valores e condições de pagamento. Sem compromisso.</p>
+      <div style="display:flex;flex-direction:column;gap:12px;margin-top:20px">
+        <div style="display:flex;align-items:center;gap:10px;font-size:14px;opacity:0.8"><span style="color:#D4A853">✓</span> Atendimento em até 30 minutos</div>
+        <div style="display:flex;align-items:center;gap:10px;font-size:14px;opacity:0.8"><span style="color:#D4A853">✓</span> Condições exclusivas para esta semana</div>
+        <div style="display:flex;align-items:center;gap:10px;font-size:14px;opacity:0.8"><span style="color:#D4A853">✓</span> Consultor CRECI-SC ativo</div>
+      </div>
+    </div>
+    <div class="form-box">
+      <form id="lead-form" onsubmit="return handleSubmit(event)">
+        <div class="form-group"><label for="nome">Nome completo</label><input type="text" id="nome" placeholder="Seu nome" required></div>
+        <div class="form-group"><label for="tel">WhatsApp</label><input type="tel" id="tel" placeholder="(47) 99999-9999" required></div>
+        <div class="form-group"><label for="email">E-mail (opcional)</label><input type="email" id="email" placeholder="seu@email.com"></div>
+        <div class="form-group">
+          <label for="interesse">Interesse</label>
+          <select id="interesse">
+            <option value="">Selecione...</option>
+            <option value="Moradia">Moradia</option>
+            <option value="Investimento">Investimento</option>
+            <option value="Moradia e Investimento">Moradia e Investimento</option>
+            <option value="Apenas informações">Apenas informações</option>
+          </select>
+        </div>
+        <button type="submit" class="form-submit">Receber informações</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-final">
+  <h2>O maior bairro planejado do sul do Brasil está em Tijucas</h2>
+  <p>Não perca a oportunidade de investir no Flores de Sal. Lotes com infraestrutura completa e valorização garantida.</p>
+  <a href="#formulario" class="btn-primary" style="font-size:18px;padding:18px 40px">Quero garantir meu lote</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <strong style="color:#D4A853">João Maciel</strong> &mdash; Consultor Imobiliário | CRECI-SC Ativo<br>
+    Tijucas &mdash; Costa Esmeralda, Santa Catarina<br>
+    <div class="footer-social">
+      <a href="https://www.instagram.com/joaomaciel.imoveis" target="_blank">Instagram @joaomaciel.imoveis</a>
+      <a href="https://wa.me/554796268759" target="_blank">WhatsApp (47) 9 9626-8759</a>
+    </div>
+    <div>Empreendimento: <a href="https://floresdesal.com.br/" target="_blank">Flores de Sal Bairro Cidade</a> &mdash; Urbanicidades Loteadora</div>
+    <div class="footer-legal">Todas as perspectivas são meramente ilustrativas, podendo sofrer alterações. Consulte condições comerciais vigentes.</div>
+  </div>
+</footer>
+
+<!-- WHATSAPP FLUTUANTE -->
+<a href="https://wa.me/554796268759?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20os%20lotes%20no%20Flores%20de%20Sal." target="_blank" class="whatsapp-float" aria-label="WhatsApp">
+  <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M16.004 0h-.008C7.174 0 0 7.176 0 16c0 3.5 1.13 6.742 3.046 9.378L1.054 31.29l6.118-1.96A15.9 15.9 0 0016.004 32C24.826 32 32 24.822 32 16S24.826 0 16.004 0zm9.335 22.594c-.39 1.1-1.932 2.014-3.182 2.28-.854.18-1.97.324-5.726-1.23-4.808-1.99-7.9-6.87-8.14-7.19-.23-.32-1.932-2.574-1.932-4.908s1.222-3.48 1.656-3.958c.434-.478.95-.598 1.264-.598.314 0 .628.004.902.016.29.014.678-.11 1.06.808.39.94 1.326 3.232 1.44 3.466.116.234.194.506.04.808-.156.306-.234.496-.462.766-.228.27-.48.604-.686.81-.228.23-.466.478-.2.938.266.46 1.184 1.952 2.542 3.164 1.746 1.556 3.216 2.038 3.674 2.268.46.23.726.194.992-.116.27-.314 1.142-1.332 1.446-1.79.304-.46.608-.38 1.022-.228.418.15 2.646 1.248 3.098 1.476.454.228.754.344.868.53.114.19.114 1.088-.276 2.188z"/></svg>
+</a>
+
+<script>
+// Galeria
+const slides=document.querySelectorAll('.galeria-slide');
+const thumbs=document.querySelectorAll('.galeria-thumb');
+const caption=document.getElementById('galeria-caption');
+let cur=0;const total=slides.length;
+
+function goTo(n){
+  cur=(n+total)%total;
+  slides.forEach((s,i)=>s.classList.toggle('active',i===cur));
+  thumbs.forEach((t,i)=>t.classList.toggle('active',i===cur));
+  caption.textContent=thumbs[cur].dataset.caption;
+  const thumb=thumbs[cur];
+  const container=thumb.parentElement;
+  if(container&&container.scrollWidth>container.clientWidth){
+    const offset=thumb.offsetLeft-(container.clientWidth/2)+(thumb.offsetWidth/2);
+    container.scrollTo({left:offset,behavior:'smooth'});
+  }
+}
+thumbs.forEach(t=>t.addEventListener('click',()=>goTo(+t.dataset.idx)));
+setInterval(()=>goTo(cur+1),5000);
+
+// FAQ
+document.querySelectorAll('.faq-q').forEach(q=>{
+  q.addEventListener('click',()=>{
+    const item=q.parentElement;
+    document.querySelectorAll('.faq-item').forEach(i=>{if(i!==item)i.classList.remove('open')});
+    item.classList.toggle('open');
+  });
+});
+
+// Phone mask
+const telInput=document.getElementById('tel');
+telInput.addEventListener('input',function(){
+  let v=this.value.replace(/\D/g,'');
+  if(v.length>11)v=v.slice(0,11);
+  if(v.length>6)v='('+v.slice(0,2)+') '+v.slice(2,7)+'-'+v.slice(7);
+  else if(v.length>2)v='('+v.slice(0,2)+') '+v.slice(2);
+  else if(v.length>0)v='('+v;
+  this.value=v;
+});
+
+// Form submit
+function handleSubmit(e){
+  e.preventDefault();
+  const data={
+    nome:document.getElementById('nome').value,
+    tel:document.getElementById('tel').value,
+    email:document.getElementById('email').value,
+    interesse:document.getElementById('interesse').value
+  };
+  localStorage.setItem('lead_flores_de_sal',JSON.stringify(data));
+  const msg=encodeURIComponent(`Olá João! Sou ${data.nome}, quero saber mais sobre os lotes no Flores de Sal. Meu interesse: ${data.interesse||'Geral'}.`);
+  window.open(`https://wa.me/554796268759?text=${msg}`,'_blank');
+  window.location.href='thank-you.html';
+  return false;
+}
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',function(e){
+    const t=document.querySelector(this.getAttribute('href'));
+    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});}
+  });
+});
+
+// Nav background on scroll
+window.addEventListener('scroll',()=>{
+  document.querySelector('.nav').style.background=window.scrollY>50?'rgba(30,60,80,0.98)':'rgba(30,60,80,0.95)';
+});
+</script>
+</body>
+</html>
